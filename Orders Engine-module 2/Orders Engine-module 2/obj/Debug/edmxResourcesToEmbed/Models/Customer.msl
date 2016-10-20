@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="Model.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CustomerTypeID" ColumnName="CustomerTypeID" />
+          <ScalarProperty Name="CustomerStatusID" ColumnName="CustomerStatusID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="MainAddress1" ColumnName="MainAddress1" />
+          <ScalarProperty Name="MainAddress2" ColumnName="MainAddress2" />
+          <ScalarProperty Name="MainAddress3" ColumnName="MainAddress3" />
+          <ScalarProperty Name="MainCity" ColumnName="MainCity" />
+          <ScalarProperty Name="MainState" ColumnName="MainState" />
+          <ScalarProperty Name="MainZip" ColumnName="MainZip" />
+          <ScalarProperty Name="MainCountry" ColumnName="MainCountry" />
+          <ScalarProperty Name="MailAddress1" ColumnName="MailAddress1" />
+          <ScalarProperty Name="MailAddress2" ColumnName="MailAddress2" />
+          <ScalarProperty Name="MailAddress3" ColumnName="MailAddress3" />
+          <ScalarProperty Name="MailCity" ColumnName="MailCity" />
+          <ScalarProperty Name="MailState" ColumnName="MailState" />
+          <ScalarProperty Name="MailZip" ColumnName="MailZip" />
+          <ScalarProperty Name="MailCountry" ColumnName="MailCountry" />
+          <ScalarProperty Name="CanLogin" ColumnName="CanLogin" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="CurrencyCode" ColumnName="CurrencyCode" />
+          <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+          <ScalarProperty Name="TaxCodeTypeID" ColumnName="TaxCodeTypeID" />
+          <ScalarProperty Name="IsSalesTaxExempt" ColumnName="IsSalesTaxExempt" />
+          <ScalarProperty Name="SalesTaxCode" ColumnName="SalesTaxCode" />
+          <ScalarProperty Name="IsEmailSubscribed" ColumnName="IsEmailSubscribed" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
