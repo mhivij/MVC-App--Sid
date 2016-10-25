@@ -10,7 +10,6 @@ namespace Orders_Engine_module_2.Controllers
     {
         Entities custdb = new Entities();
 
-
         // GET: Customers
         public ActionResult ViewRecords()
         {

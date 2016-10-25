@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Orders_Engine_module_2.Models.OrderHistory>
+
+@{
+    ViewBag.Title = "ViewOrders";
+}
+
+<h2>ViewOrders</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderStatusID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderStatusID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrderHistoryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderHistoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderHistoryID })
+        </td>*@
+    </tr>
+}
+
+</table>

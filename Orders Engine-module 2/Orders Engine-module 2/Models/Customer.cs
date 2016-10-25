@@ -35,7 +35,7 @@ namespace Orders_Engine_module_2.Models
         [Required(ErrorMessage = "Company name is required")]
         public string Company { get; set; }
 
-    
+        [RegularExpression(@"^[0-9]{0,15}$", ErrorMessage = "CustomerTypeID should contain only numbers")]
         [Required(ErrorMessage = "CustomerTypeID is required")]
         public int CustomerTypeID { get; set; }
 
@@ -68,6 +68,7 @@ namespace Orders_Engine_module_2.Models
         [Required(ErrorMessage = "MainState is required")]
         public string MainState { get; set; }
 
+        [RegularExpression(@"^[0-9]{0,15}$", ErrorMessage = "MainZip should contain only numbers")]
         [Required(ErrorMessage = "MainZip is required")]
         public string MainZip { get; set; }
 
@@ -92,6 +93,7 @@ namespace Orders_Engine_module_2.Models
         [Required(ErrorMessage = "MailState is required")]
         public string MailState { get; set; }
 
+        [RegularExpression(@"^[0-9]{0,15}$", ErrorMessage = "MailZip should contain only numbers")]
         [Required(ErrorMessage = "MailZip is required")]
         public string MailZip { get; set; }
 
@@ -105,7 +107,7 @@ namespace Orders_Engine_module_2.Models
         [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
         public string LoginName { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "BirthDate is required")]
         public System.DateTime BirthDate { get; set; }
 
@@ -125,9 +127,11 @@ namespace Orders_Engine_module_2.Models
             }
             set { }
         }
-
+        [Required]
         public string TaxCode { get; set; }
 
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+        [RegularExpression(@"^[0-9]{0,15}$", ErrorMessage = "TaxCodeTypeID should contain only numbers")]
         [Required(ErrorMessage = "TaxCodeTypeID is required")]
         public int TaxCodeTypeID { get; set; }
 
@@ -138,11 +142,11 @@ namespace Orders_Engine_module_2.Models
         public Nullable<bool> IsEmailSubscribed { get; set; }
         public string Notes { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "CreatedDate is required")]
         public System.DateTime CreatedDate { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "ModifiedDate is required")]
         public System.DateTime ModifiedDate { get; set; }
 
