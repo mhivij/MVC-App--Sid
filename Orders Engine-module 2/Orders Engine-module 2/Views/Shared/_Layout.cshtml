@@ -36,7 +36,6 @@
     <!DOCTYPE html>
     <html lang="en">
     <head>
-        <title>Bootstrap Example</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -83,16 +82,14 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Products</a></li>
+                        <li><a href="/../Products/Index">Products</a></li>
                         <li><a href="#">Deals</a></li>
                         <li><a href="#">Stores</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><span class="glyphicon glyphicon-user"></span></li>
-                        <li>@Html.ActionLink("Signin", "Login", "Auth")</li>
-                        <li><span class="glyphicon glyphicon-shopping-cart"></span></li>
-                        <li>@Html.ActionLink("Cart", "ViewOrders", "OrdersHistory")</li>
+                        <li><a href="/../Auth/Login"><span class="glyphicon glyphicon-user"></span> Signin</a></li>
+                        <li><a href="/../OrdersHistory/ViewOrders"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     </ul>
                 </div>
             </div>
@@ -107,14 +104,9 @@
             </form>
         </footer>*@
 
-    </body>
-</html>
-
 
     <div class="container body-content">
         @RenderBody()
-       
-        
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>

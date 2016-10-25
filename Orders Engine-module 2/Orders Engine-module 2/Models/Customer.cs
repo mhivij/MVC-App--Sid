@@ -18,6 +18,7 @@ namespace Orders_Engine_module_2.Models
     public partial class Customer
     {
         string name;
+        List<SelectListItem> list;
         public int CustomerID { get; set; }
 
         [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Do not enter numbers")]
@@ -126,10 +127,10 @@ namespace Orders_Engine_module_2.Models
         { get
             { 
         
-                    List<SelectListItem> list = new List<SelectListItem> { new SelectListItem() { Text = "Select", Value = "Select" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } };
+                    list = new List<SelectListItem> { new SelectListItem() { Text = "Select", Value = "Select" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } };
                     return list.Select(l => new SelectListItem { Selected = (l.Value == Gender), Text = l.Text, Value = l.Value });
             }
-            set { }
+            set {  }
         }
         [Required]
         public string TaxCode { get; set; }

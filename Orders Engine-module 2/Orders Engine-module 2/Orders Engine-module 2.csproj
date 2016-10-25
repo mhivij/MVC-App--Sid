@@ -197,11 +197,22 @@
       <DependentUpon>OrdersHistory.edmx</DependentUpon>
       <LastGenOutput>OrdersHistory.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Products.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Products.edmx</DependentUpon>
+      <LastGenOutput>Products.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Products.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Products.edmx</DependentUpon>
+      <LastGenOutput>Products.cs</LastGenOutput>
+    </Content>
     <Content Include="scripts\ai.0.22.19-build00125.js" />
     <Content Include="scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Web.config" />
     <EntityDeploy Include="Models\Customer.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Customer.Designer.cs</LastGenOutput>
@@ -215,6 +226,13 @@
     </EntityDeploy>
     <Content Include="Models\OrdersHistory.edmx.diagram">
       <DependentUpon>OrdersHistory.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Products.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Products.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Products.edmx.diagram">
+      <DependentUpon>Products.edmx</DependentUpon>
     </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -234,16 +252,23 @@
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Customers\Insert.cshtml" />
     <Content Include="Views\Customers\ViewRecords.cshtml" />
-    <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersHistoryController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
@@ -286,6 +311,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrdersHistory.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>Products.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductCategory.cs">
+      <DependentUpon>Products.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Products.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Products.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Products.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Products.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Products.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Products.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -294,7 +340,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -304,12 +349,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\OrdersHistory\ViewOrders.cshtml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -161,6 +161,5 @@ C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Order
 C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\bin\Org.Mentalis.Security.Cryptography.xml
 C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\bin\Microsoft.AspNet.Scaffolding.12.0.xml
 C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\bin\Mono.Math.xml
-C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\obj\Debug\Orders Engine-module 2.csprojResolveAssemblyReference.cache
 C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\obj\Debug\Orders Engine-module 2.dll
 C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\obj\Debug\Orders Engine-module 2.pdb
