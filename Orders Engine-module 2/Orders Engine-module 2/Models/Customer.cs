@@ -17,11 +17,12 @@ namespace Orders_Engine_module_2.Models
 
     public partial class Customer
     {
+        string name;
         public int CustomerID { get; set; }
 
         [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Do not enter numbers")]
         [Required(ErrorMessage = "First name is required")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set;}
 
         [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
         [Required(ErrorMessage = "Middle name is required")]
@@ -104,8 +105,11 @@ namespace Orders_Engine_module_2.Models
         [Required(ErrorMessage = "CanLogin is required")]
         public bool CanLogin { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
-        public string LoginName { get; set; }
+        //[RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
+        public string LoginName {
+            get { return name; }
+            set { name = FirstName; }
+        }
 
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "BirthDate is required")]
@@ -150,13 +154,16 @@ namespace Orders_Engine_module_2.Models
         [Required(ErrorMessage = "ModifiedDate is required")]
         public System.DateTime ModifiedDate { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
-        [Required(ErrorMessage = "CreatedBy is required")]
-        public string CreatedBy { get; set; }
+        //[RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
+        //[Required(ErrorMessage = "CreatedBy is required")]
+        public string CreatedBy { get { return name;}
+                                  set { name = FirstName; }
+        }
 
-        [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
-        [Required(ErrorMessage = "ModifiedBy  is required")]
-        public string ModifiedBy { get; set; }
+        //[RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
+        //[Required(ErrorMessage = "ModifiedBy  is required")]
+        public string ModifiedBy {get { return name; }set { name = FirstName; }
+        }
     }
 
 }
