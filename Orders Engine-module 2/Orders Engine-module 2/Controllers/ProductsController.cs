@@ -7,13 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Orders_Engine_module_2.Models;
+using System.IO;
 
 namespace Orders_Engine_module_2.Controllers
 {
     public class ProductsController : Controller
     {
         private ProductsEntities db = new ProductsEntities();
-
+       static List<ProductCategory> prodlist;
         // GET: Products
         public ActionResult Index()
         {
@@ -39,7 +40,14 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName");
+            List<SelectListItem> ProdCateList = new List<SelectListItem>();
+             prodlist = db.ProductCategories.ToList();
+            foreach (var x in prodlist)
+            {
+                ProdCateList.Add(new SelectListItem { Text = x.ProductCategoryName.ToString(), Value = x.ProductCategoryName.ToString() });
+            }
+            ViewData["ProductCategoryName"] = ProdCateList;
+            //ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName");
             return View();
         }
 
@@ -52,6 +60,24 @@ namespace Orders_Engine_module_2.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach (var x in prodlist)
+                {
+                    if(Request["ProductCategoryName"].ToString() == x.ProductCategoryName)
+                    {
+                        product.ProductCategoryID = x.ProductCategoryID;
+                    }
+                }
+
+                    HttpPostedFileBase uploadImage = Request.Files["uploadImage"];
+                if (uploadImage != null && uploadImage.ContentLength > 0)
+                {
+                    byte[] imageData = null;
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                    product.ProductImage = imageData;
+                }
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");

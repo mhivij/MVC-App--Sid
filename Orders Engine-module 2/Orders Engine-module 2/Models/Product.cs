@@ -14,6 +14,7 @@ namespace Orders_Engine_module_2.Models
     
     public partial class Product
     {
+        string admin = "Admin";
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public int ProductCategoryID { get; set; }
@@ -21,8 +22,8 @@ namespace Orders_Engine_module_2.Models
         public byte[] ProductImage { get; set; }
         public bool IsTaxable { get; set; }
         public int TaxAmout { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
+        public string CreatedBy { get { return admin; }  set { } }
     
         public virtual ProductCategory ProductCategory { get; set; }
     }

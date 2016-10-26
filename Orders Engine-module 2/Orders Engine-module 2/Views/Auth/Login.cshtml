@@ -44,18 +44,19 @@
                         <input type="submit" value="Log in" class="btn btn-default"/>
                     </div>
                 </div>
-                <p>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button class="btn btn-default" value="Submit" type="submit" onclick="location.href='@Url.Action("Insert", "Customers")'"></button>
-                        </div>
-                    </div>
-                   </p>
+              
                 @* Enable this once you have account confirmation enabled for password reset functionality
                     <p>
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
                     </p>*@
             }
+            <p>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-default" value="Submit" type="submit" onclick="location.href='@Url.Action("Insert", "Customers")'"> Sign up</button>
+                    </div>
+                </div>
+            </p>
         </section>
     </div>
     <div class="col-md-4">

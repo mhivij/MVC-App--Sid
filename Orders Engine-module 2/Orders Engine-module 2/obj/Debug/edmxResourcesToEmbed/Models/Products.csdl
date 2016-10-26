@@ -8,7 +8,7 @@
     <Property Name="ProductCategoryName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Product" Relationship="Self.FK_Products_ProductCategories" FromRole="ProductCategories" ToRole="Products" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_ProductCategories" FromRole="ProductCategories" ToRole="Products" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -27,13 +27,13 @@
   </EntityType>
   <Association Name="FK_Products_ProductCategories">
     <End Role="ProductCategories" Type="Self.ProductCategory" Multiplicity="1" />
-    <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ProductCategories">
         <PropertyRef Name="ProductCategoryID" />
       </Principal>
       <Dependent Role="Products">
-        <PropertyRef Name="ProductID" />
+        <PropertyRef Name="ProductCategoryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

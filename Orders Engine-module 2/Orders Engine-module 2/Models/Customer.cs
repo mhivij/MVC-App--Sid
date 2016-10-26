@@ -149,11 +149,11 @@ namespace Orders_Engine_module_2.Models
 
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "CreatedDate is required")]
-        public System.DateTime CreatedDate { get; set; }
+        public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
 
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "ModifiedDate is required")]
-        public System.DateTime ModifiedDate { get; set; }
+        public System.DateTime ModifiedDate { get { return DateTime.Now; } set { } }
 
         //[RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
         //[Required(ErrorMessage = "CreatedBy is required")]

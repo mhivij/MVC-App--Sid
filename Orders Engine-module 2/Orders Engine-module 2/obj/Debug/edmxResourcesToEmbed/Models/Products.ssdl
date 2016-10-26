@@ -25,13 +25,13 @@
   </EntityType>
   <Association Name="FK_Products_ProductCategories">
     <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="1" />
-    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ProductCategories">
         <PropertyRef Name="ProductCategoryID" />
       </Principal>
       <Dependent Role="Products">
-        <PropertyRef Name="ProductID" />
+        <PropertyRef Name="ProductCategoryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
