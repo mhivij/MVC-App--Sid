@@ -1,23 +1,40 @@
-﻿using System;
+﻿using Orders_Engine_module_2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using System.Web;
 
 using System.Web.Mvc;
+using System.IO;
 
 namespace Orders_Engine_module_2.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
-        public ActionResult Index()
+        private ProductsEntities db = new ProductsEntities();
+        public async Task<ActionResult> RenderImage(int id)
         {
-            return View();
+            Product product = await db.Products.FindAsync(id);
+
+            byte[] ShowImage = product.ProductImage;
+
+            return File(ShowImage, "image/png");
         }
-        public ActionResult About()
+        // GET: Home
+        public ActionResult Homepage()
         {
-            ViewBag.Message = "Your application description page.";
-            return View();
+            var products = db.Products.Select(x => x).ToList();
+           
+            return View(products);
+        }
+
+        // GET: Details
+        public ActionResult DisplayProductDetails(int id)
+        {
+            var product = db.Products.Find(id);
+            return View(product);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Orders_Engine_module_2.Controllers
             /*var cust = from customer in custdb.Customers
               select customer;*/
             var cust =custdb.Customers.Select(x=>x).ToList();
-            return View(cust.ToList());
+            return View(cust);
         }
 
         // GET: Customers/Create

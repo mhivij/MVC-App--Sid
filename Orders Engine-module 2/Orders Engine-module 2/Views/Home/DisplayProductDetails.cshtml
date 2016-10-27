@@ -1,0 +1,83 @@
+﻿@model Orders_Engine_module_2.Models.Product
+
+@{
+    ViewBag.Title = "DisplayProductDetails";
+}
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductImage)
+        </dt>
+
+        <dd>
+            @{
+                var base64 = Convert.ToBase64String(Model.ProductImage);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+            <img src="@imgSrc" style="max-height:50%; max-width: 50%" /> 
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsTaxable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsTaxable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxAmout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxAmout)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCategory.ProductCategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCategory.ProductCategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |*@
+    @Html.ActionLink("Back to List", "Homepage")
+</p>

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Orders_Engine_module_2.Models.Product>
+
+@{
+    ViewBag.Title = "Homepage";
+}
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">@Html.ActionLink(item.ProductName, "DisplayProductDetails", new { id = item.ProductID }, new { style = "color:black" })</div>
+                    <div class="panel-body"><img src="@Url.Action("RenderImage", new { id = item.ProductID})" align="middle" style="max-height: 50%; max-width: 50%" /></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
