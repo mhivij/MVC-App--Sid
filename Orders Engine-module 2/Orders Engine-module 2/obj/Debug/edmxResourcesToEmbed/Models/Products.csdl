@@ -24,6 +24,7 @@
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Products_ProductCategories" FromRole="Products" ToRole="ProductCategories" />
+    <Property Name="ProductPrice" Type="Int32" />
   </EntityType>
   <Association Name="FK_Products_ProductCategories">
     <End Role="ProductCategories" Type="Self.ProductCategory" Multiplicity="1" />

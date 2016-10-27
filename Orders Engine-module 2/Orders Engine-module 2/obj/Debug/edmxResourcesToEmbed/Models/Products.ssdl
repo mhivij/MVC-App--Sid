@@ -22,25 +22,10 @@
     <Property Name="TaxAmout" Type="int" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="ProductPrice" Type="int" />
   </EntityType>
-  <Association Name="FK_Products_ProductCategories">
-    <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="1" />
-    <End Role="Products" Type="Self.Products" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ProductCategories">
-        <PropertyRef Name="ProductCategoryID" />
-      </Principal>
-      <Dependent Role="Products">
-        <PropertyRef Name="ProductCategoryID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="Model2StoreContainer">
     <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Products_ProductCategories" Association="Self.FK_Products_ProductCategories">
-      <End Role="ProductCategories" EntitySet="ProductCategories" />
-      <End Role="Products" EntitySet="Products" />
-    </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -23,7 +23,8 @@ namespace Orders_Engine_module_2.Models
         public bool IsTaxable { get; set; }
         public int TaxAmout { get; set; }
         public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
-        public string CreatedBy { get { return admin; }  set { } }
+        public string CreatedBy { get { return admin; } set { } }
+        public Nullable<int> ProductPrice { get; set; }
     
         public virtual ProductCategory ProductCategory { get; set; }
     }
