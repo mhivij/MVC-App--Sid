@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "InsertNewProduct")
 </p>
 <table class="table">
     <tr>
@@ -53,7 +53,8 @@
             @Html.DisplayFor(modelItem => item.ProductDescription)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductImage)
+            <img src="@Url.Action("RenderImage", new { id = item.ProductID})" width="80" height="80"  />
+            @*@Html.DisplayFor(modelItem => item.ProductImage)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsTaxable)
@@ -71,9 +72,8 @@
             @Html.DisplayFor(modelItem => item.ProductCategory.ProductCategoryName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+            @Html.ActionLink("Edit", "EditProductDetails", new { id=item.ProductID }) |
+            @Html.ActionLink("Delete", "DeleteProduct", new { id=item.ProductID })
         </td>
     </tr>
 }

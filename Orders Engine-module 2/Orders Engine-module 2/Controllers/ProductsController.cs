@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Orders_Engine_module_2.Models;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Orders_Engine_module_2.Controllers
 {
@@ -15,30 +16,24 @@ namespace Orders_Engine_module_2.Controllers
     {
         private ProductsEntities db = new ProductsEntities();
        static List<ProductCategory> prodlist;
+        // GET: Image
+        public async Task<ActionResult> RenderImage(int id)
+        {
+            Product product = await db.Products.FindAsync(id);
+
+            byte[] ShowImage = product.ProductImage;
+
+            return File(ShowImage, "image/png");
+        }
         // GET: Products
-        public ActionResult Index()
+        public ActionResult ViewProducts()
         {
             var products = db.Products.Include(p => p.ProductCategory);
             return View(products.ToList());
         }
 
-        // GET: Products/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
-
         // GET: Products/Create
-        public ActionResult Create()
+        public ActionResult InsertNewProduct()
         {
             List<SelectListItem> ProdCateList = new List<SelectListItem>();
              prodlist = db.ProductCategories.ToList();
@@ -56,7 +51,7 @@ namespace Orders_Engine_module_2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,ProductCategoryID,ProductDescription,ProductImage,IsTaxable,TaxAmout,CreatedDate,CreatedBy")] Product product)
+        public ActionResult InsertNewProduct([Bind(Include = "ProductID,ProductName,ProductCategoryID,ProductDescription,ProductImage,IsTaxable,TaxAmout,CreatedDate,CreatedBy")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +75,7 @@ namespace Orders_Engine_module_2.Controllers
                 }
                 db.Products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewProducts");
             }
 
             ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
@@ -88,7 +83,7 @@ namespace Orders_Engine_module_2.Controllers
         }
 
         // GET: Products/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditProductDetails(int? id)
         {
             if (id == null)
             {
@@ -108,20 +103,20 @@ namespace Orders_Engine_module_2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,ProductCategoryID,ProductDescription,ProductImage,IsTaxable,TaxAmout,CreatedDate,CreatedBy")] Product product)
+        public ActionResult EditProductDetails([Bind(Include = "ProductID,ProductName,ProductCategoryID,ProductDescription,ProductImage,IsTaxable,TaxAmout,CreatedDate,CreatedBy")] Product product)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewProducts");
             }
             ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
             return View(product);
         }
 
         // GET: Products/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteProduct(int? id)
         {
             if (id == null)
             {
@@ -136,14 +131,14 @@ namespace Orders_Engine_module_2.Controllers
         }
 
         // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteProduct")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewProducts");
         }
 
         protected override void Dispose(bool disposing)
