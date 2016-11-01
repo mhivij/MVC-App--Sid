@@ -9,7 +9,7 @@
         {
             <div class="col-sm-4">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">@Html.ActionLink(item.ProductName, "DisplayProductDetails", new { id = item.ProductID }, new { style = "color:black" })</div>
+                    <div class="panel-heading"><img src="@Url.Content("~/Content/Images/Discount.jpg")" align="top" height=12 width=12 />@Html.ActionLink(item.ProductName, "DisplayProductDetails", new { id = item.ProductID }, new { style = "color:black" })</div>
                     <div class="panel-body"><img src="@Url.Action("RenderImage", new { id = item.ProductID})" align="middle" height=80 width=80 /></div>
                     <div class="panel-footer">Price=@Html.DisplayFor(model => item.ProductPrice)</div>
                 </div>

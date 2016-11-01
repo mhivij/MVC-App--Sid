@@ -72,7 +72,7 @@ namespace Orders_Engine_module_2.Controllers
                     }
                 }
 
-                    HttpPostedFileBase uploadImage = Request.Files["uploadImage"];
+                HttpPostedFileBase uploadImage = Request.Files["uploadImage"];
                 if (uploadImage != null && uploadImage.ContentLength > 0)
                 {
                     byte[] imageData = null;
@@ -82,6 +82,12 @@ namespace Orders_Engine_module_2.Controllers
                     }
                     product.ProductImage = imageData;
                 }
+
+                //if (!product.IsTaxable)
+                //{
+                //    product.TaxAmout = 0;
+                //}
+
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("ViewProducts");
@@ -128,6 +134,12 @@ namespace Orders_Engine_module_2.Controllers
                         product.ProductCategoryID = x.ProductCategoryID;
                     }
                 }
+
+                if (!product.IsTaxable)
+                {
+                    product.TaxAmout = 0;
+                }
+                
                 product.ProductImage = img;
                 db.SaveChanges();
                 return RedirectToAction("ViewProducts");

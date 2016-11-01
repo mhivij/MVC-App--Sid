@@ -67,11 +67,14 @@
         <script type="text/javascript">
             function TaxAmtDisplay(status) {
                 var tax = document.getElementById("taxamount");
-                tax.style.display = status.checked ? "block" : "none";
+                if (status.checked)
+                    tax.style.display = "block"
+                else
+                    tax.style.display = "none"
             }
         </script>
 
-        <div class="form-group" id="taxamount">
+        <div class="form-group" id="taxamount" style="display:none">
             @Html.LabelFor(model => model.TaxAmout, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TaxAmout, new { htmlAttributes = new { @class = "form-control" } })

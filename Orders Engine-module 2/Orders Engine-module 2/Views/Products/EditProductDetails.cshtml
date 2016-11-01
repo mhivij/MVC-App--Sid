@@ -53,13 +53,23 @@
             @Html.LabelFor(model => model.IsTaxable, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsTaxable)
+                    @Html.EditorFor(model => model.IsTaxable, new { htmlAttributes = new { @id = "checkstatus", @onclick = "TaxAmtDisplay(this)" } })
                     @Html.ValidationMessageFor(model => model.IsTaxable, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
+        <script type="text/javascript">
+            function TaxAmtDisplay(status) {
+                var tax = document.getElementById("taxamount");
+                if (status.checked)
+                    tax.style.display = "block"
+                else
+                    tax.style.display = "none"
+            }
+        </script>
+
+        <div class="form-group" id="taxamount" style="display:none">
             @Html.LabelFor(model => model.TaxAmout, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TaxAmout, new { htmlAttributes = new { @class = "form-control" } })
