@@ -15,7 +15,9 @@ namespace Orders_Engine_module_2.Controllers
     public class ProductsController : Controller
     {
         private ProductsEntities db = new ProductsEntities();
-       static List<ProductCategory> prodlist;
+        static List<ProductCategory> prodlist;
+        List<SelectListItem> ProdCateList = new List<SelectListItem>();
+       static byte[] img;
         // GET: Image
         public async Task<ActionResult> RenderImage(int id)
         {
@@ -29,14 +31,17 @@ namespace Orders_Engine_module_2.Controllers
         public ActionResult ViewProducts()
         {
             var products = db.Products.Include(p => p.ProductCategory);
+
+            if(db.ProductCategories.ToList().Count>0)
+            {
+                prodlist = db.ProductCategories.ToList();
+            }
             return View(products.ToList());
         }
 
         // GET: Products/Create
         public ActionResult InsertNewProduct()
         {
-            List<SelectListItem> ProdCateList = new List<SelectListItem>();
-             prodlist = db.ProductCategories.ToList();
             foreach (var x in prodlist)
             {
                 ProdCateList.Add(new SelectListItem { Text = x.ProductCategoryName.ToString(), Value = x.ProductCategoryName.ToString() });
@@ -90,7 +95,14 @@ namespace Orders_Engine_module_2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            foreach (var x in prodlist)
+            {
+                ProdCateList.Add(new SelectListItem { Text = x.ProductCategoryName.ToString(), Value = x.ProductCategoryName.ToString() });
+            }
+            ViewData["ProductCategoryName"] = ProdCateList;
+            //db.Products.Find(id).ProductCategory.ToString()
             Product product = db.Products.Find(id);
+            img = product.ProductImage;
             if (product == null)
             {
                 return HttpNotFound();
@@ -109,6 +121,15 @@ namespace Orders_Engine_module_2.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(product).State = EntityState.Modified;
+                foreach (var x in prodlist)
+                {
+                    if (Request["ProductCategoryName"].ToString() == x.ProductCategoryName)
+                    {
+                        product.ProductCategoryID = x.ProductCategoryID;
+                    }
+                }
+                product.ProductImage = img;
+                //UpdateModel(product);
                 db.SaveChanges();
                 return RedirectToAction("ViewProducts");
             }

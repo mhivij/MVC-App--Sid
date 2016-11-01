@@ -28,7 +28,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProductCategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductCategoryID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("ProductCategoryName", ViewData["ProductCategoryName"] as List<SelectListItem>, htmlAttributes: new { @class = "control-label col-md-2" })
+                @*@Html.EditorFor(model => model.ProductCategoryID, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.ProductCategoryID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,15 +44,10 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ProductImage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @{
-                    var base64 = Convert.ToBase64String(Model.ProductImage);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                }
-                <img src="@imgSrc" style="max-height:20%; max-width: 20%" /> 
-                @*@Html.EditorFor(model => model.ProductImage, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })*@
-            </div>
+           @{
+               var id = Model.ProductID;
+            }
+        <img src="@Url.Action("RenderImage", new {id})" align="middle" height=80 width=80 />
         </div>
 
         <div class="form-group">
