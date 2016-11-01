@@ -55,6 +55,7 @@ namespace Orders_Engine_module_2.Controllers
         {
             if (ModelState.IsValid)
             {
+                //If the selected Product Category Name in drop down list matches with the Product Category name in product category table then its corresponding Product id is saved in product id column of products table.
                 foreach (var x in prodlist)
                 {
                     if(Request["ProductCategoryName"].ToString() == x.ProductCategoryName)

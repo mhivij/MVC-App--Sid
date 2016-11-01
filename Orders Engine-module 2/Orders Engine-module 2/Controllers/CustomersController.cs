@@ -22,7 +22,7 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Customers/Create
         public ActionResult Insert()
         {
-            return base.View(new Customer());
+            return View(new Customer());
         }
 
         // POST: Customers/Create

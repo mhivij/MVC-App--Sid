@@ -123,14 +123,15 @@ namespace Orders_Engine_module_2.Models
 
         [Required(ErrorMessage = "Gender is required")]
         public string Gender { get; set; }
+       
         public IEnumerable<SelectListItem> GenderList
         { get
-            { 
-        
+            {
+
                     list = new List<SelectListItem> { new SelectListItem() { Text = "Select", Value = "Select" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } };
                     return list.Select(l => new SelectListItem { Selected = (l.Value == Gender), Text = l.Text, Value = l.Value });
             }
-            set {  }
+            set { }
         }
         [Required]
         public string TaxCode { get; set; }
