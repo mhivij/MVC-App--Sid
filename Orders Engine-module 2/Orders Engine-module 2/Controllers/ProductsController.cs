@@ -16,9 +16,10 @@ namespace Orders_Engine_module_2.Controllers
     {
         private ProductsEntities db = new ProductsEntities();
         static List<ProductCategory> prodlist;
-        List<SelectListItem> ProdCateList = new List<SelectListItem>();
-       static byte[] img;
-        // GET: Image
+        static List<SelectListItem> ProdCateList = new List<SelectListItem>();
+        static byte[] img;
+
+        // GET:Byte to Image 
         public async Task<ActionResult> RenderImage(int id)
         {
             Product product = await db.Products.FindAsync(id);
@@ -27,14 +28,20 @@ namespace Orders_Engine_module_2.Controllers
 
             return File(ShowImage, "image/png");
         }
+
         // GET: Products
         public ActionResult ViewProducts()
         {
             var products = db.Products.Include(p => p.ProductCategory);
 
+            //Create DropDownList
             if(db.ProductCategories.ToList().Count>0)
             {
                 prodlist = db.ProductCategories.ToList();
+                foreach (var x in prodlist)
+                {
+                    ProdCateList.Add(new SelectListItem { Text = x.ProductCategoryName.ToString(), Value = x.ProductCategoryName.ToString() });
+                }
             }
             return View(products.ToList());
         }
@@ -42,10 +49,6 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Products/Create
         public ActionResult InsertNewProduct()
         {
-            foreach (var x in prodlist)
-            {
-                ProdCateList.Add(new SelectListItem { Text = x.ProductCategoryName.ToString(), Value = x.ProductCategoryName.ToString() });
-            }
             ViewData["ProductCategoryName"] = ProdCateList;
             //ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName");
             return View();
@@ -95,12 +98,9 @@ namespace Orders_Engine_module_2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            foreach (var x in prodlist)
-            {
-                ProdCateList.Add(new SelectListItem { Text = x.ProductCategoryName.ToString(), Value = x.ProductCategoryName.ToString() });
-            }
+
             ViewData["ProductCategoryName"] = ProdCateList;
-            //db.Products.Find(id).ProductCategory.ToString()
+
             Product product = db.Products.Find(id);
             img = product.ProductImage;
             if (product == null)
@@ -129,7 +129,6 @@ namespace Orders_Engine_module_2.Controllers
                     }
                 }
                 product.ProductImage = img;
-                //UpdateModel(product);
                 db.SaveChanges();
                 return RedirectToAction("ViewProducts");
             }
