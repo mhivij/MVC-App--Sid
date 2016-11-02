@@ -14,6 +14,7 @@ namespace Orders_Engine_module_2.Controllers
     public class HomeController : Controller
     {
         private ProductsEntities db = new ProductsEntities();
+        int id;
         public async Task<ActionResult> RenderImage(int id)
         {
             Product product = await db.Products.FindAsync(id);
@@ -21,6 +22,13 @@ namespace Orders_Engine_module_2.Controllers
             byte[] ShowImage = product.ProductImage;
 
             return File(ShowImage, "image/png");
+        }
+        public ActionResult PartialProducts(string Category)
+        {
+            var p = db.ProductCategories.Where(x => x.ProductCategoryName== Category).ToList().FirstOrDefault();
+            var products = db.Products.Select(x => x).ToList().Where(x=>x.ProductCategoryID == p.ProductCategoryID);
+
+            return View(products);
         }
         // GET: Home
         public ActionResult Homepage()

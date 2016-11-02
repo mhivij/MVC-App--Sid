@@ -48,10 +48,10 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/../Home/Homepage">Home</a></li>
                         <li><a href="/../Products/ViewProducts">Products</a></li>
-                        <li><a href="#">Electronics</a></li>
-                        <li><a href="#">Home and Decor</a></li>
-                        <li><a href="#">Lifestyle</a></li>
-                        <li><a href="#">Accessories</a></li>
+                        <li><a href="@Url.Action("PartialProducts","Home", new {Category="Electronics"})">Electronics</a></li>
+                        <li><a href="@Url.Action("PartialProducts","Home", new {Category="Clothing"})">Clothing</a></li>
+                        <li><a href="@Url.Action("PartialProducts","Home", new {Category="Lifestyle"})">Lifestyle</a></li>
+                        <li><a href="@Url.Action("PartialProducts","Home", new {Category="Accessories"})">Accessories</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/../Auth/Login"><span class="glyphicon glyphicon-user"></span> Signin</a></li>

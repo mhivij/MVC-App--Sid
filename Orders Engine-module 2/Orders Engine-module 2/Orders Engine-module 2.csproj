@@ -217,6 +217,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Products\ViewProducts.cshtml" />
+    <Content Include="Views\Shared\PartialProducts.cshtml" />
     <Content Include="Web.config" />
     <EntityDeploy Include="Models\Customer.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
