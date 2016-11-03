@@ -49,8 +49,6 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Create new product categories
         public ActionResult InsertNewProductCategory()
         {
-            ViewData["ProductCategoryName"] = ProdCateList;
-            //ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName");
             return View();
         }
 
@@ -90,37 +88,35 @@ namespace Orders_Engine_module_2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult InsertNewProduct([Bind(Include = "ProductID,ProductName,ProductCategoryID,ProductDescription,ProductImage,IsTaxable,TaxAmout,CreatedDate,CreatedBy,ProductPrice ")] Product product)
         {
-            if (ModelState.IsValid)
+            if (!product.IsTaxable)
             {
+                product.TaxAmout = 0;
+            }
+            foreach (var x in prodlist)
+            {
+                if (Request["ProductCategoryName"].ToString() == x.ProductCategoryName)
+                {
+                    product.ProductCategoryID = x.ProductCategoryID;
+                }
+            }
+
+            HttpPostedFileBase uploadImage = Request.Files["uploadImage"];
+            if (uploadImage != null && uploadImage.ContentLength > 0)
+            {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                }
+                product.ProductImage = imageData;
+            }
+
                 //If the selected Product Category Name in drop down list matches with the Product Category name in product category table then its corresponding Product id is saved in product id column of products table.
-                foreach (var x in prodlist)
-                {
-                    if(Request["ProductCategoryName"].ToString() == x.ProductCategoryName)
-                    {
-                        product.ProductCategoryID = x.ProductCategoryID;
-                    }
-                }
-
-                HttpPostedFileBase uploadImage = Request.Files["uploadImage"];
-                if (uploadImage != null && uploadImage.ContentLength > 0)
-                {
-                    byte[] imageData = null;
-                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
-                    {
-                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                    }
-                    product.ProductImage = imageData;
-                }
-
-                //if (!product.IsTaxable)
-                //{
-                //    product.TaxAmout = 0;
-                //}
 
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("ViewProducts");
-            }
+      
 
             ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
             return View(product);

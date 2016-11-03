@@ -13,8 +13,6 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Customers
         public ActionResult ViewRecords()
         {
-            /*var cust = from customer in custdb.Customers
-              select customer;*/
             var cust =custdb.Customers.Select(x=>x).ToList();
             return View(cust);
         }
@@ -29,21 +27,14 @@ namespace Orders_Engine_module_2.Controllers
         [HttpPost]
         public ActionResult Insert([Bind(Include = "FirstName,MiddleName,LastName,Company,CustomerTypeID,CustomerStatusID, Email, Phone, MainAddress1, MainAddress2, MainAddress3, MainCity, MainState, MainZip, MainCountry, MailAddress1, MailAddress2, MailAddress3, MailCity, MailState, MailZip, MailCountry,CanLogin,LoginName,BirthDate,CurrencyCode,LanguageID,Gender,TaxCode,TaxCodeTypeID,IsSalesTaxExempt,SalesTaxCode,IsEmailSubscribed,Notes,CreatedDate,ModifiedDate,CreatedBy,ModifiedBy")]Customer customer)
         {
-            try
-            {
 
-                // TODO: Add insert logic here
-                custdb.Customers.Add(customer);
-                custdb.SaveChanges();
-               // Customer insert = new Customer();
-                //insert.BirthDate=Convert.ToDateTime(collection["BirthDate"]);
-               
-                return RedirectToAction("ViewRecords");
-            }
-            catch
-            {
-                return base.View();
-            }
+                if (ModelState.IsValid)
+                {
+                    // TODO: Add insert logic here
+                    custdb.Customers.Add(customer);
+                    custdb.SaveChanges();
+                }
+            return RedirectToAction("ViewRecords");
         }
 
         // GET: Customers/Edit/5

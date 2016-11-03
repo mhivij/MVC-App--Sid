@@ -17,7 +17,6 @@ namespace Orders_Engine_module_2.Models
 
     public partial class Customer
     {
-        string name;
         List<SelectListItem> list;
         public int CustomerID { get; set; }
 
@@ -108,11 +107,11 @@ namespace Orders_Engine_module_2.Models
 
         //[RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
         public string LoginName {
-            get { return name; }
-            set { name = FirstName; }
+            get { return FirstName; }
+            set { }
         }
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "BirthDate is required")]
         public System.DateTime BirthDate { get; set; }
 
@@ -125,7 +124,8 @@ namespace Orders_Engine_module_2.Models
         public string Gender { get; set; }
        
         public IEnumerable<SelectListItem> GenderList
-        { get
+        {
+            get
             {
 
                     list = new List<SelectListItem> { new SelectListItem() { Text = "Select", Value = "Select" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } };
@@ -148,23 +148,23 @@ namespace Orders_Engine_module_2.Models
         public Nullable<bool> IsEmailSubscribed { get; set; }
         public string Notes { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "CreatedDate is required")]
         public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "ModifiedDate is required")]
         public System.DateTime ModifiedDate { get { return DateTime.Now; } set { } }
 
         //[RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
         //[Required(ErrorMessage = "CreatedBy is required")]
-        public string CreatedBy { get { return name;}
-                                  set { name = FirstName; }
+        public string CreatedBy { get { return FirstName;}
+                                  set { }
         }
 
         //[RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Enter only alphabets")]
         //[Required(ErrorMessage = "ModifiedBy  is required")]
-        public string ModifiedBy {get { return name; }set { name = FirstName; }
+        public string ModifiedBy {get { return FirstName; }set { }
         }
     }
 
