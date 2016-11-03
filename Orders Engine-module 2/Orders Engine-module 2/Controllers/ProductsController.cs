@@ -149,8 +149,7 @@ namespace Orders_Engine_module_2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditProductDetails([Bind(Include = "ProductID,ProductName,ProductCategoryID,ProductDescription,ProductImage,IsTaxable,TaxAmout,CreatedDate,CreatedBy,ProductPrice")] Product product)
         {
-            if (ModelState.IsValid)
-            {
+            
                 db.Entry(product).State = EntityState.Modified;
                 foreach (var x in prodlist)
                 {
@@ -168,7 +167,7 @@ namespace Orders_Engine_module_2.Controllers
                 product.ProductImage = img;
                 db.SaveChanges();
                 return RedirectToAction("ViewProducts");
-            }
+     
             ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
             return View(product);
         }
