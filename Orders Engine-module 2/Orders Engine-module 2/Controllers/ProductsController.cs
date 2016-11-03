@@ -46,6 +46,35 @@ namespace Orders_Engine_module_2.Controllers
             return View(products.ToList());
         }
 
+        // GET: Create new product categories
+        public ActionResult InsertNewProductCategory()
+        {
+            ViewData["ProductCategoryName"] = ProdCateList;
+            //ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult InsertNewProductCategory([Bind(Include = "ProductCategoryID,ProductCategoryName,CreatedDate,CreatedBy")] ProductCategory productcategory)
+        {
+            if (ModelState.IsValid)
+            {
+                var product = db.ProductCategories.Where(x => x.ProductCategoryName == productcategory.ProductCategoryName).Select(x => x.ProductCategoryName);
+                if (product == null)
+                {
+                    db.ProductCategories.Add(productcategory);
+                    db.SaveChanges();
+                    return RedirectToAction("ViewProducts");
+                }
+                else
+                {
+                    ViewBag.message = "Record already available";
+                }
+            }
+            return View(productcategory);
+        }
+
         // GET: Products/Create
         public ActionResult InsertNewProduct()
         {

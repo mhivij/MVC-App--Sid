@@ -174,7 +174,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\Discount.jpg" />
+    <Content Include="Content\Images\Discount.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -217,7 +217,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Products\ViewProducts.cshtml" />
-    <Content Include="Views\Shared\PartialProducts.cshtml" />
     <Content Include="Web.config" />
     <EntityDeploy Include="Models\Customer.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -262,6 +261,7 @@
     <Content Include="Views\web.config" />
     <Content Include="Views\Home\Homepage.cshtml" />
     <Content Include="Views\Home\DisplayProductDetails.cshtml" />
+    <Content Include="Views\Products\InsertNewProductCategory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

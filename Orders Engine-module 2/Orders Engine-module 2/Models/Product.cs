@@ -11,21 +11,27 @@ namespace Orders_Engine_module_2.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Product
     {
-        string admin = "Admin";
         public int ProductID { get; set; }
+        [Required]
         public string ProductName { get; set; }
+        [Required]
         public int ProductCategoryID { get; set; }
+        [Required]
         public string ProductDescription { get; set; }
+        [Required]
         public byte[] ProductImage { get; set; }
+        [Required]
         public bool IsTaxable { get; set; }
+        [Required]
         public int TaxAmout { get; set; }
         public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
-        public string CreatedBy { get { return admin; } set { } }
+        public string CreatedBy { get { return "Admin"; } set { } }
         public Nullable<int> ProductPrice { get; set; }
-    
+        
         public virtual ProductCategory ProductCategory { get; set; }
     }
 }

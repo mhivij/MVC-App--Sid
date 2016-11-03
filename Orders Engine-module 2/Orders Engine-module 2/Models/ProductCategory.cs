@@ -11,7 +11,8 @@ namespace Orders_Engine_module_2.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ProductCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,10 +22,11 @@ namespace Orders_Engine_module_2.Models
         }
     
         public int ProductCategoryID { get; set; }
+        [Required]
         public string ProductCategoryName { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-    
+        public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
+        public string CreatedBy { get { return "Admin"; } set { } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }

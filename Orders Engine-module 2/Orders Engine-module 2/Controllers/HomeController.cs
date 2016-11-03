@@ -14,7 +14,7 @@ namespace Orders_Engine_module_2.Controllers
     public class HomeController : Controller
     {
         private ProductsEntities db = new ProductsEntities();
-        int id;
+
         public async Task<ActionResult> RenderImage(int id)
         {
             Product product = await db.Products.FindAsync(id);
@@ -23,18 +23,26 @@ namespace Orders_Engine_module_2.Controllers
 
             return File(ShowImage, "image/png");
         }
-        public ActionResult PartialProducts(string Category)
+        public ActionResult ProductCategories(string Category)
         {
-            var p = db.ProductCategories.Where(x => x.ProductCategoryName== Category).ToList().FirstOrDefault();
-            var products = db.Products.Select(x => x).ToList().Where(x=>x.ProductCategoryID == p.ProductCategoryID);
+            var p = db.ProductCategories.Where(x => x.ProductCategoryName == Category).Select(x => x.ProductCategoryID).FirstOrDefault();
 
-            return View(products);
+            var products = db.Products.Where(x => x.ProductCategoryID == p).ToList();
+            if (products.Count != 0)
+            {
+                return View("Homepage",products);
+            }
+            else
+            {
+                ViewBag.message = "Record not available";
+                return View("Homepage");
+            }
         }
         // GET: Home
         public ActionResult Homepage()
         {
             var products = db.Products.Select(x => x).ToList();
-           
+
             return View(products);
         }
 
