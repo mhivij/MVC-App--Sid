@@ -4,8 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Error"]</p>
+}
 <p>
     @Html.ActionLink("Insert New Record", "Insert")
 </p>

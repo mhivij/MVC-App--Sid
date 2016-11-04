@@ -1,13 +1,8 @@
 ﻿using Orders_Engine_module_2.Models;
-using System;
-using System.Collections.Generic;
+
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web;
-
-using System.Web.Mvc;
-using System.IO;
 
 namespace Orders_Engine_module_2.Controllers
 {
@@ -29,6 +24,7 @@ namespace Orders_Engine_module_2.Controllers
         {
             if (Category != null)
             {
+
                 var p = db.ProductCategories.Where(x => x.ProductCategoryName == Category).Select(x => x.ProductCategoryID).FirstOrDefault();
 
                 var products = db.Products.Where(x => x.ProductCategoryID == p).ToList();

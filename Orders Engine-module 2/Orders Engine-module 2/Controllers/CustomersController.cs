@@ -13,8 +13,16 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Customers
         public ActionResult ViewRecords()
         {
-            var cust =custdb.Customers.Select(x=>x).ToList();
-            return View(cust);
+            try
+            {
+                var cust = custdb.Customers.Select(x => x).ToList();
+                return View(cust);
+            }
+            catch
+            {
+                TempData["Error"] = " Net Connection Unstable";
+                return RedirectToAction("Login", "Auth");
+            }
         }
 
         // GET: Customers/Create
@@ -28,20 +36,41 @@ namespace Orders_Engine_module_2.Controllers
         public ActionResult Insert([Bind(Include = "FirstName,MiddleName,LastName,Company,CustomerTypeID,CustomerStatusID, Email, Phone, MainAddress1, MainAddress2, MainAddress3, MainCity, MainState, MainZip, MainCountry, MailAddress1, MailAddress2, MailAddress3, MailCity, MailState, MailZip, MailCountry,CanLogin,LoginName,BirthDate,CurrencyCode,LanguageID,Gender,TaxCode,TaxCodeTypeID,IsSalesTaxExempt,SalesTaxCode,IsEmailSubscribed,Notes,CreatedDate,ModifiedDate,CreatedBy,ModifiedBy")]Customer customer)
         {
 
-                if (ModelState.IsValid)
+           if (ModelState.IsValid)
+             {
+                try
                 {
                     // TODO: Add insert logic here
                     custdb.Customers.Add(customer);
                     custdb.SaveChanges();
+                    return RedirectToAction("ViewRecords");
                 }
-            return RedirectToAction("ViewRecords");
+                catch
+                {
+                    TempData["Error"] = " Net Connection Unstable";
+                    return View(new Customer());
+                }
+            }
+           else
+            {
+                TempData["Error"] = " Model state us false";
+                return View(new Customer());
+            }
         }
 
         // GET: Customers/Edit/5
         public ActionResult Edit(int id)
         {
-            Customer cust = custdb.Customers.Find(id);
-            return View(cust);
+            try
+            {
+                Customer cust = custdb.Customers.Find(id);
+                return View(cust);
+            }
+            catch
+            {
+                TempData["Error"] = " Net Connection Unstable";
+                return RedirectToAction("ViewRecords");
+            }
         }
 
         // POST: Customers/Edit/5
