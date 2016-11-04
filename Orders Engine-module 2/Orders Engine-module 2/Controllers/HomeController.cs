@@ -23,27 +23,31 @@ namespace Orders_Engine_module_2.Controllers
 
             return File(ShowImage, "image/png");
         }
-        public ActionResult ProductCategories(string Category)
-        {
-            var p = db.ProductCategories.Where(x => x.ProductCategoryName == Category).Select(x => x.ProductCategoryID).FirstOrDefault();
 
-            var products = db.Products.Where(x => x.ProductCategoryID == p).ToList();
-            if (products.Count != 0)
+        // GET: Home
+        public ActionResult Homepage(string Category)
+        {
+            if (Category != null)
             {
-                return View("Homepage",products);
+                var p = db.ProductCategories.Where(x => x.ProductCategoryName == Category).Select(x => x.ProductCategoryID).FirstOrDefault();
+
+                var products = db.Products.Where(x => x.ProductCategoryID == p).ToList();
+                if (products.Count != 0)
+                {
+                    return View("Homepage", products);
+                }
+                else
+                {
+                    ViewBag.message = "Record not available";
+                    return View("Homepage");
+                }
             }
             else
             {
-                ViewBag.message = "Record not available";
-                return View("Homepage");
+                var products = db.Products.Select(x => x).ToList();
+                return View(products);
             }
-        }
-        // GET: Home
-        public ActionResult Homepage()
-        {
-            var products = db.Products.Select(x => x).ToList();
 
-            return View(products);
         }
 
         // GET: Details
