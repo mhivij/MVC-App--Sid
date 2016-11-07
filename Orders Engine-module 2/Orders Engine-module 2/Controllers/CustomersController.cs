@@ -20,8 +20,8 @@ namespace Orders_Engine_module_2.Controllers
             }
             catch
             {
-                TempData["Error"] = " Net Connection Unstable";
-                return RedirectToAction("Login", "Auth");
+                TempData["Error"] = "There is no Internet connection";
+                return View();
             }
         }
 
@@ -47,13 +47,13 @@ namespace Orders_Engine_module_2.Controllers
                 }
                 catch
                 {
-                    TempData["Error"] = " Net Connection Unstable";
+                    TempData["Error"] = "There is no Internet connection";
                     return View(new Customer());
                 }
             }
            else
             {
-                TempData["Error"] = " Model state us false";
+                TempData["Error"] = " Model state is false";
                 return View(new Customer());
             }
         }
@@ -64,42 +64,47 @@ namespace Orders_Engine_module_2.Controllers
             try
             {
                 Customer cust = custdb.Customers.Find(id);
+                Session["Customer"] = cust;
                 return View(cust);
             }
             catch
             {
-                TempData["Error"] = " Net Connection Unstable";
                 return RedirectToAction("ViewRecords");
             }
         }
 
         // POST: Customers/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection, Customer customer)
         {
             try
             {
                 // TODO: Add update logic here
-                var cust=custdb.Customers.Find(id);
+                var cust = custdb.Customers.Find(id);
                 UpdateModel(cust);
                 custdb.SaveChanges();
                 return RedirectToAction("ViewRecords");
             }
             catch
             {
-                return base.View();
+                TempData["Error"] = "There is no Internet connection";
+                return View(customer);
             }
         }
 
         // GET: Customers/Delete/5
         public ActionResult Delete(int id)
         {
-            //var cust = custdb.Customers.Find(id);
-            var cust = custdb.Customers.Where(x => x.CustomerID == id).SingleOrDefault();
-            custdb.Customers.Remove(cust);
-            custdb.SaveChanges();
-            return RedirectToAction("ViewRecords");
-            //return View(cust);
+            try
+            {
+                var cust = custdb.Customers.Find(id);
+                return View(cust);
+            }
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return View();
+            }
         }
 
         // POST: Customers/Delete/5
@@ -109,11 +114,14 @@ namespace Orders_Engine_module_2.Controllers
             try
             {
                 // TODO: Add delete logic here
-                
-                return RedirectToAction("Index");
+                var cust = custdb.Customers.Where(x => x.CustomerID == id).SingleOrDefault();
+                custdb.Customers.Remove(cust);
+                custdb.SaveChanges();
+                return RedirectToAction("ViewRecords");
             }
             catch
             {
+                TempData["Error"] = "There is no Internet connection";
                 return base.View();
             }
         }

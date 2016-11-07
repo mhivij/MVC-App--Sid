@@ -6,8 +6,10 @@
 
 @if (TempData["Error"] != null)
 {
-    <p class="alert alert-success" id="successMessage">@TempData["Error"]</p>
+    <p class="alert alert-success" id="ErrorMessage">@TempData["Error"]</p>
 }
+else
+{
 <p>
     @Html.ActionLink("Insert New Record", "Insert")
 </p>
@@ -255,3 +257,4 @@
 }
 
 </table>
+}

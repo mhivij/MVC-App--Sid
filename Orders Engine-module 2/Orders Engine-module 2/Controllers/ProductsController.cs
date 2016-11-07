@@ -32,18 +32,26 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Products
         public ActionResult ViewProducts()
         {
-            var products = db.Products.Include(p => p.ProductCategory);
-
-            //Create DropDownList
-            if(db.ProductCategories.ToList().Count>0)
+            try
             {
-                prodlist = db.ProductCategories.ToList();
-                foreach (var x in prodlist)
+                var products = db.Products.Include(p => p.ProductCategory);
+
+                //Create DropDownList
+                if (db.ProductCategories.ToList().Count > 0)
                 {
-                    ProdCateList.Add(new SelectListItem { Text = x.ProductCategoryName.ToString(), Value = x.ProductCategoryName.ToString() });
+                    prodlist = db.ProductCategories.ToList();
+                    foreach (var x in prodlist)
+                    {
+                        ProdCateList.Add(new SelectListItem { Text = x.ProductCategoryName.ToString(), Value = x.ProductCategoryName.ToString() });
+                    }
                 }
+                return View(products.ToList());
             }
-            return View(products.ToList());
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return View();
+            }
         }
 
         // GET: Create new product categories
@@ -88,38 +96,44 @@ namespace Orders_Engine_module_2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult InsertNewProduct([Bind(Include = "ProductID,ProductName,ProductCategoryID,ProductDescription,ProductImage,IsTaxable,TaxAmout,CreatedDate,CreatedBy,ProductPrice ")] Product product)
         {
-            if (!product.IsTaxable)
-            {
-                product.TaxAmout = 0;
-            }
-            foreach (var x in prodlist)
-            {
-                if (Request["ProductCategoryName"].ToString() == x.ProductCategoryName)
+                if (!product.IsTaxable)
                 {
-                    product.ProductCategoryID = x.ProductCategoryID;
+                    product.TaxAmout = 0;
                 }
-            }
-
-            HttpPostedFileBase uploadImage = Request.Files["uploadImage"];
-            if (uploadImage != null && uploadImage.ContentLength > 0)
-            {
-                byte[] imageData = null;
-                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                foreach (var x in prodlist)
                 {
-                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    if (Request["ProductCategoryName"].ToString() == x.ProductCategoryName)
+                    {
+                        product.ProductCategoryID = x.ProductCategoryID;
+                    }
                 }
-                product.ProductImage = imageData;
-            }
 
-                //If the selected Product Category Name in drop down list matches with the Product Category name in product category table then its corresponding Product id is saved in product id column of products table.
+                HttpPostedFileBase uploadImage = Request.Files["uploadImage"];
+                if (uploadImage != null && uploadImage.ContentLength > 0)
+                {
+                    byte[] imageData = null;
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                    product.ProductImage = imageData;
+                }
 
+            //If the selected Product Category Name in drop down list matches with the Product Category name in product category table then its corresponding Product id is saved in product id column of products table.
+            try
+            {
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("ViewProducts");
-      
-
-            ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
-            return View(product);
+            }
+            
+            catch
+            {
+                ViewData["ProductCategoryName"] = ProdCateList;
+                TempData["Error"] = "There is no Internet connection";
+                return View(product);
+            }
+            //ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
         }
 
         // GET: Products/Edit/5
@@ -131,15 +145,21 @@ namespace Orders_Engine_module_2.Controllers
             }
 
             ViewData["ProductCategoryName"] = ProdCateList;
-
-            Product product = db.Products.Find(id);
-            img = product.ProductImage;
-            if (product == null)
+            try
             {
-                return HttpNotFound();
+                Product product = db.Products.Find(id);
+                img = product.ProductImage;
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
+                return View(product);
             }
-            ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
-            return View(product);
+            catch
+            {
+                return RedirectToAction("ViewProducts");
+            }
         }
 
         // POST: Products/Edit/5
@@ -149,8 +169,9 @@ namespace Orders_Engine_module_2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditProductDetails([Bind(Include = "ProductID,ProductName,ProductCategoryID,ProductDescription,ProductImage,IsTaxable,TaxAmout,CreatedDate,CreatedBy,ProductPrice")] Product product)
         {
-            
-                db.Entry(product).State = EntityState.Modified;
+            ViewData["ProductCategoryName"] = ProdCateList;
+
+            db.Entry(product).State = EntityState.Modified;
                 foreach (var x in prodlist)
                 {
                     if (Request["ProductCategoryName"].ToString() == x.ProductCategoryName)
@@ -165,37 +186,58 @@ namespace Orders_Engine_module_2.Controllers
                 }
                 
                 product.ProductImage = img;
+            try
+            {
                 db.SaveChanges();
                 return RedirectToAction("ViewProducts");
-     
-            ViewBag.ProductID = new SelectList(db.ProductCategories, "ProductCategoryID", "ProductCategoryName", product.ProductID);
-            return View(product);
+            }
+           catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return View(product);
+            }
         }
 
         // GET: Products/Delete/5
         public ActionResult DeleteProduct(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Product product = db.Products.Find(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(product);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            catch
             {
-                return HttpNotFound();
+                TempData["Error"] = "There is no Internet connection";
+                return View();
             }
-            return View(product);
         }
 
         // POST: Products/Delete/5
         [HttpPost, ActionName("DeleteProduct")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id,Product product)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
-            return RedirectToAction("ViewProducts");
+            try
+            {
+                product = db.Products.Find(id);
+                db.Products.Remove(product);
+                db.SaveChanges();
+                return RedirectToAction("ViewProducts");
+            }
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return base.View(product);
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -208,3 +250,33 @@ namespace Orders_Engine_module_2.Controllers
         }
     }
 }
+
+
+   //if (ModelState.IsValid)
+   //         {
+   //             try
+   //             {
+   //                 var product = db.ProductCategories.Where(x => x.ProductCategoryName == productcategory.ProductCategoryName).Select(x => x.ProductCategoryName);
+   //                 if (product == null)
+   //                 {
+   //                     db.ProductCategories.Add(productcategory);
+   //                     db.SaveChanges();
+   //                     return RedirectToAction("ViewProducts");
+   //                 }
+   //                 else
+   //                 {
+   //                     ViewBag.message = "Record already available";
+   //                 }
+   //                 return View(productcategory);
+   //             }
+   //             catch
+   //             {
+   //                 TempData["Error"] = "There is no Internet connection";
+   //                 return View();
+   //             }
+   //         }
+   //         else
+   //         {
+   //             TempData["Error"] = " Model state is false";
+   //             return View();
+   //         }

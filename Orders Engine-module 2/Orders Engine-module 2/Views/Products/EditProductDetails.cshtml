@@ -4,8 +4,10 @@
     ViewBag.Title = "EditProductDetails";
 }
 
-<h2>Edit</h2>
-
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Error"]</p>
+}
 
 @using (Html.BeginForm())
 {

@@ -10,7 +10,7 @@ namespace Orders_Engine_module_2.Controllers
     public class AuthController : Controller
     {
         // GET: Login
-        public ActionResult Index()
+        public ActionResult RedirectToCustomer()
         {
             return View();
         }
@@ -23,6 +23,7 @@ namespace Orders_Engine_module_2.Controllers
 
              return View(model);
          }*/
+         //Return Login page view
         public ActionResult Login(string submit)
         {
             return View();

@@ -22,26 +22,33 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Home
         public ActionResult Homepage(string Category)
         {
-            if (Category != null)
+            try
             {
-
-                var p = db.ProductCategories.Where(x => x.ProductCategoryName == Category).Select(x => x.ProductCategoryID).FirstOrDefault();
-
-                var products = db.Products.Where(x => x.ProductCategoryID == p).ToList();
-                if (products.Count != 0)
+                if (Category != null)
                 {
-                    return View("Homepage", products);
+                    var p = db.ProductCategories.Where(x => x.ProductCategoryName == Category).Select(x => x.ProductCategoryID).FirstOrDefault();
+
+                    var products = db.Products.Where(x => x.ProductCategoryID == p).ToList();
+                    if (products.Count != 0)
+                    {
+                        return View(products);
+                    }
+                    else
+                    {
+                        ViewBag.message = "Record not available";
+                        return View();
+                    }
                 }
                 else
                 {
-                    ViewBag.message = "Record not available";
-                    return View("Homepage");
+                    var products = db.Products.Select(x => x).ToList();
+                    return View(products);
                 }
             }
-            else
+            catch
             {
-                var products = db.Products.Select(x => x).ToList();
-                return View(products);
+                ViewBag.message = "There is no Internet connection";
+                return View();
             }
 
         }
@@ -49,8 +56,16 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Details
         public ActionResult DisplayProductDetails(int id)
         {
-            var product = db.Products.Find(id);
-            return View(product);
+            try
+            {
+                var product = db.Products.Find(id);
+                return View(product);
+            }
+            catch
+            {
+                ViewBag.message = "There is no Internet connection";
+                return View("Homepage");
+            }
         }
     }
 }
