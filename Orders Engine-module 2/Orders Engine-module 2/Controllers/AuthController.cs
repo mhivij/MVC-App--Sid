@@ -18,10 +18,10 @@ namespace Orders_Engine_module_2.Controllers
         UserStore<AppUser> userStore;
         UserManager<AppUser> userManager;
         UsersContext dbuser = new UsersContext();
-        // UserStore and RoleStore classes perform database storage and retrieval tasks
+
+        // UserStore perform database storage and retrieval tasks
         public AuthController()
         {
-
             userStore = new UserStore<AppUser>(dbuser);
             userManager = new UserManager<AppUser>(userStore);
         }
@@ -39,9 +39,9 @@ namespace Orders_Engine_module_2.Controllers
             {
                 try
                 {
-                    AppUser user = new AppUser();
-                    var product = userManager.FindByName(model.UserName);
-                    if (product != null)
+                    AppUser user = new AppUser();      
+                    var username = userManager.FindByName(model.UserName);
+                    if (username != null)
                     {
                         ModelState.AddModelError("UserName", "Username Already in use");
                     }
@@ -98,7 +98,7 @@ namespace Orders_Engine_module_2.Controllers
                     else
                     {
                         Session["session"] =true ;
-                        return RedirectToAction("ViewRecords", "Customers");
+                        return RedirectToAction("DiscountOptions", "Discount");
                     }
                 }
                 else

@@ -325,6 +325,9 @@
     <Content Include="Views\Products\InsertNewProductCategory.cshtml" />
     <Content Include="Views\Auth\Register.cshtml" />
     <Content Include="Views\Auth\ChangePassword.cshtml" />
+    <Content Include="Views\Discount\CreateNewDiscount.cshtml" />
+    <Content Include="Views\Discount\CreateNewDiscountType.cshtml" />
+    <Content Include="Views\Discount\DiscountOptions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -335,6 +338,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\DiscountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersHistoryController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />

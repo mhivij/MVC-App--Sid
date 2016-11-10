@@ -19,6 +19,7 @@ namespace Orders_Engine_module_2
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+            //RoleStore perform database storage and retrieval tasks
             RoleStore<UserRole> roleStore = new RoleStore<UserRole>(dbuser);
             RoleManager<UserRole> roleManager = new RoleManager<UserRole>(roleStore);
 

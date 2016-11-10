@@ -22,9 +22,9 @@ namespace Orders_Engine_module_2.Models
     
         public int DiscountTypeID { get; set; }
         public string DiscountTypeName { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-    
+        public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
+        public string CreatedBy { get { return "Admin"; } set { } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Discount> Discounts { get; set; }
     }

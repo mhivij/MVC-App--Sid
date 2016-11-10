@@ -24,9 +24,9 @@ namespace Orders_Engine_module_2.Models
         public string DiscountName { get; set; }
         public int DiscountTypeID { get; set; }
         public decimal DiscountPercent { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-    
+        public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
+        public string CreatedBy { get { return "Admin"; } set { } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiscountProductMap> DiscountProductMaps { get; set; }
         public virtual DiscountType DiscountType { get; set; }

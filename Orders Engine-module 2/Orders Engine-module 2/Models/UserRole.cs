@@ -8,14 +8,14 @@ namespace Orders_Engine_module_2.Models
 {
     public class UserRole : IdentityRole
     {
-        private string v { get; set; }
-
+        private string Description { get; set; }
+        
         public UserRole() : base() { }
         public UserRole(string name) : base(name) { }
 
         public UserRole(string name, string v) : this(name)
         {
-            this.v = v;
+            this.Description = v;
         }
     }
 }
