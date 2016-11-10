@@ -18,8 +18,6 @@ namespace Orders_Engine_module_2
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //Database.SetInitializer<MyDbContext>(new MyDbInitializer());
-            
 
             RoleStore<UserRole> roleStore = new RoleStore<UserRole>(dbuser);
             RoleManager<UserRole> roleManager = new RoleManager<UserRole>(roleStore);
@@ -35,6 +33,10 @@ namespace Orders_Engine_module_2
                 UserRole newRole = new UserRole("Operator", "Operators can only add or edit data.");
                 roleManager.Create(newRole);
             }
+        }
+        protected void Session_Start(Object sender, EventArgs e)
+        {
+            Session["session"] = false;
         }
 
     }

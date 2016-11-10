@@ -230,6 +230,16 @@
       <DependentUpon>Customer.edmx</DependentUpon>
       <LastGenOutput>Customer1.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Discounts.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Discounts.edmx</DependentUpon>
+      <LastGenOutput>Discounts.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Discounts.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Discounts.edmx</DependentUpon>
+      <LastGenOutput>Discounts.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\OrdersHistory.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OrdersHistory.edmx</DependentUpon>
@@ -280,6 +290,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Products.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Models\Discounts.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Discounts.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Discounts.edmx.diagram">
+      <DependentUpon>Discounts.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -321,6 +338,30 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersHistoryController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Models\Discount.cs">
+      <DependentUpon>Discounts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DiscountProductMap.cs">
+      <DependentUpon>Discounts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Discounts.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Discounts.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Discounts.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Discounts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Discounts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Discounts.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DiscountType.cs">
+      <DependentUpon>Discounts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\ChangePassword.cs" />

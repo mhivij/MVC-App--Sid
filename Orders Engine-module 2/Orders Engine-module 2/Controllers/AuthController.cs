@@ -24,9 +24,6 @@ namespace Orders_Engine_module_2.Controllers
 
             userStore = new UserStore<AppUser>(dbuser);
             userManager = new UserManager<AppUser>(userStore);
-
-            RoleStore<UserRole> roleStore = new RoleStore<UserRole>(dbuser);
-            RoleManager<UserRole> roleManager = new RoleManager<UserRole>(roleStore);
         }
 
         public ActionResult Register()
@@ -112,6 +109,19 @@ namespace Orders_Engine_module_2.Controllers
             }
             return View(model);
         }
+
+        //[Authorize]
+        //public ActionResult ForgotPassword()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[Authorize]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ForgotPassword(ChangePassword model)
+        //{
+        //}
 
         [Authorize]
         public ActionResult ChangePassword()

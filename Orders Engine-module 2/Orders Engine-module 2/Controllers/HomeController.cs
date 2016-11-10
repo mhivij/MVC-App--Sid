@@ -10,11 +10,6 @@ namespace Orders_Engine_module_2.Controllers
     {
         private ProductsEntities db = new ProductsEntities();
 
-        public HomeController()
-        {
-            Session["session"] = false;
-        }
-
         public async Task<ActionResult> RenderImage(int id)
         {
             Product product = await db.Products.FindAsync(id);

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model3StoreContainer" CdmEntityContainer="DiscountEntities">
+    <EntitySetMapping Name="DiscountProductMaps">
+      <EntityTypeMapping TypeName="Model3.DiscountProductMap">
+        <MappingFragment StoreEntitySet="DiscountProductMap">
+          <ScalarProperty Name="MapID" ColumnName="MapID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Discounts">
+      <EntityTypeMapping TypeName="Model3.Discount">
+        <MappingFragment StoreEntitySet="Discounts">
+          <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+          <ScalarProperty Name="DiscountName" ColumnName="DiscountName" />
+          <ScalarProperty Name="DiscountTypeID" ColumnName="DiscountTypeID" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiscountTypes">
+      <EntityTypeMapping TypeName="Model3.DiscountType">
+        <MappingFragment StoreEntitySet="DiscountTypes">
+          <ScalarProperty Name="DiscountTypeID" ColumnName="DiscountTypeID" />
+          <ScalarProperty Name="DiscountTypeName" ColumnName="DiscountTypeName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
