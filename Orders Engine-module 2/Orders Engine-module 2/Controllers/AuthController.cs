@@ -1,33 +1,155 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+using Orders_Engine_module_2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Orders_Engine_module_2.Controllers
 {
     public class AuthController : Controller
     {
-        // GET: Login
-        public ActionResult RedirectToCustomer()
+        UserStore<AppUser> userStore;
+        UserManager<AppUser> userManager;
+        UsersContext dbuser = new UsersContext();
+        // UserStore and RoleStore classes perform database storage and retrieval tasks
+        public AuthController()
+        {
+
+            userStore = new UserStore<AppUser>(dbuser);
+            userManager = new UserManager<AppUser>(userStore);
+
+            RoleStore<UserRole> roleStore = new RoleStore<UserRole>(dbuser);
+            RoleManager<UserRole> roleManager = new RoleManager<UserRole>(roleStore);
+        }
+
+        public ActionResult Register()
         {
             return View();
         }
-        /* public ActionResult Login(string returnUrl)
-         {
-             var model = new LoginModel
-             {
-                 ReturnUrl = returnUrl
-             };
+    
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(Register model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    AppUser user = new AppUser();
+                    var product = userManager.FindByName(model.UserName);
+                    if (product != null)
+                    {
+                        ModelState.AddModelError("UserName", "Username Already in use");
+                    }
+                    else
+                    {
+                        user.UserName = model.UserName;
+                        user.Email = model.Email;
+                        user.FullName = model.FullName;
 
-             return View(model);
-         }*/
-         //Return Login page view
-        public ActionResult Login(string submit)
+                        IdentityResult result = userManager.Create(user, model.Password);
+
+                        if (result.Succeeded)
+                        {
+                            userManager.AddToRole(user.Id, "Administrator");
+                            return RedirectToAction("Login", "Auth");
+                        }
+                    }
+                }
+                catch
+                {
+                    TempData["Error"] = "There is no Internet connection";
+                }
+            }
+            return View(model);
+        }
+
+
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //Return Login page view
+        [HttpPost]
+        public ActionResult Login(LoginModel model, String returnurl)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = userManager.Find(model.Username, model.Password);
+                if (user != null)
+                {
+                    IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+                    authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                    ClaimsIdentity identity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationProperties props = new AuthenticationProperties();
+                    //props.IsPersistent = model.RememberMe;
+                    authenticationManager.SignIn(props, identity);
+
+                    if (Url.IsLocalUrl(returnurl))
+                    {
+                        return Redirect(returnurl);
+                    }
+                    else
+                    {
+                        Session["session"] =true ;
+                        return RedirectToAction("ViewRecords", "Customers");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("Password", "Invalid username or password.");
+                }
+
+            }
+            return View(model);
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
         {
             return View();
         }
 
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = userManager.FindByName(HttpContext.User.Identity.Name);
+                IdentityResult result = userManager.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+                    authenticationManager.SignOut();
+                    return RedirectToAction("Login", "Auth");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Error while changing the password.");
+                }
+            }
+            return View(model);
+        }
+
+        [Authorize]
+       // [ValidateAntiForgeryToken]
+        public ActionResult LogOut()
+        {
+            Session["session"] = false;
+            IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return RedirectToAction("Login", "Auth");
+        }
     }
 }
