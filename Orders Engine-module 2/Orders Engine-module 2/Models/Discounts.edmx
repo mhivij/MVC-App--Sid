@@ -19,9 +19,9 @@
           <Key>
             <PropertyRef Name="DiscountID" />
           </Key>
-          <Property Name="DiscountID" Type="int" Nullable="false" />
+          <Property Name="DiscountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DiscountName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="DiscountTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiscountTypeID" Type="int" Nullable="false" />
           <Property Name="DiscountPercent" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -92,9 +92,9 @@
           <Key>
             <PropertyRef Name="DiscountID" />
           </Key>
-          <Property Name="DiscountID" Type="Int32" Nullable="false" />
+          <Property Name="DiscountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DiscountName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DiscountTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiscountTypeID" Type="Int32" Nullable="false" />
           <Property Name="DiscountPercent" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />

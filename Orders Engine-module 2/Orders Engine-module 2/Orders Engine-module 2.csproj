@@ -328,6 +328,7 @@
     <Content Include="Views\Discount\CreateNewDiscount.cshtml" />
     <Content Include="Views\Discount\CreateNewDiscountType.cshtml" />
     <Content Include="Views\Discount\DiscountOptions.cshtml" />
+    <Content Include="Views\Discount\AddDiscountToProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

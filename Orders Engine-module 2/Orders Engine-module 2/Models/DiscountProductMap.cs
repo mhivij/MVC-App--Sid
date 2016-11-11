@@ -11,15 +11,19 @@ namespace Orders_Engine_module_2.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class DiscountProductMap
     {
         public int MapID { get; set; }
         public int ProductID { get; set; }
         public int DiscountID { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-    
+        public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
+        public string CreatedBy { get { return "Admin"; } set { } }
+
+        public IEnumerable<SelectListItem> discountname { get; set; }
+        public IEnumerable<SelectListItem> Productname { get; set; }
+
         public virtual Discount Discount { get; set; }
     }
 }

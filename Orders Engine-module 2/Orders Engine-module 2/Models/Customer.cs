@@ -127,7 +127,6 @@ namespace Orders_Engine_module_2.Models
         {
             get
             {
-
                     list = new List<SelectListItem> { new SelectListItem() { Text = "Select", Value = "Select" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } };
                     return list.Select(l => new SelectListItem { Selected = (l.Value == Gender), Text = l.Text, Value = l.Value });
             }

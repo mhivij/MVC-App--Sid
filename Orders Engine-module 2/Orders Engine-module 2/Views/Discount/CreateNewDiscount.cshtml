@@ -6,6 +6,7 @@
 @{
     Html.RenderPartial("DiscountOptions","Discount");
 }
+@ViewBag.message
 
 @using (Html.BeginForm()) 
 {
@@ -23,6 +24,14 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiscountTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.DiscountTypeID, Model.discountTypename,"Select Discount Type")
+                @Html.ValidationMessageFor(model => model.DiscountTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.DiscountPercent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

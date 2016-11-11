@@ -11,7 +11,8 @@ namespace Orders_Engine_module_2.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Discount
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,6 +27,7 @@ namespace Orders_Engine_module_2.Models
         public decimal DiscountPercent { get; set; }
         public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
         public string CreatedBy { get { return "Admin"; } set { } }
+        public IEnumerable<SelectListItem> discountTypename { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiscountProductMap> DiscountProductMaps { get; set; }
