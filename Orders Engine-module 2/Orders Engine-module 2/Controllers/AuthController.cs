@@ -4,6 +4,7 @@ using Microsoft.Owin.Security;
 using Orders_Engine_module_2.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -82,7 +83,7 @@ namespace Orders_Engine_module_2.Controllers
             if (ModelState.IsValid)
             {
                 AppUser user = userManager.Find(model.Username, model.Password);
-                if (user != null)
+                if (user != null && userManager.IsInRole(user.Id, "Administrator"))
                 {
                     IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
                     authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
@@ -90,7 +91,7 @@ namespace Orders_Engine_module_2.Controllers
                     AuthenticationProperties props = new AuthenticationProperties();
                     //props.IsPersistent = model.RememberMe;
                     authenticationManager.SignIn(props, identity);
-
+     
                     if (Url.IsLocalUrl(returnurl))
                     {
                         return Redirect(returnurl);

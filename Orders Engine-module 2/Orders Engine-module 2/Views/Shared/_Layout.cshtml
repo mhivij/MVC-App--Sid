@@ -33,12 +33,21 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="@Url.Action("Homepage","Home")">Home</a></li>
-                        <li><a href="/../Products/ViewProducts">Products</a></li>
-                        <li><a href="@Url.Action("Homepage","Home", new {Category="Electronics"})">Electronics</a></li>
-                        <li><a href="@Url.Action("Homepage","Home", new {Category="Clothing"})">Clothing</a></li>
-                        <li><a href="@Url.Action("Homepage","Home", new {Category="Lifestyle"})">Lifestyle</a></li>
-                        <li><a href="@Url.Action("Homepage","Home", new {Category="Accessories"})">Accessories</a></li>
-                        <li><a href="@Url.Action("Homepage","Home", new {Category="Footwear"})">Footwear</a></li>
+                         @if (!Session["session"].Equals(true))
+                         {
+                        <li><a href="@Url.Action("Homepage", "Home", new { Category = "Electronics" })">Electronics</a></li>
+                        <li><a href="@Url.Action("Homepage", "Home", new { Category = "Clothing" })">Clothing</a></li>
+                        <li><a href="@Url.Action("Homepage", "Home", new { Category = "Lifestyle" })">Lifestyle</a></li>
+                        <li><a href="@Url.Action("Homepage", "Home", new { Category = "Accessories" })">Accessories</a></li>
+                        <li><a href="@Url.Action("Homepage", "Home", new { Category = "Footwear" })">Footwear</a></li>
+                         }
+                         else
+                         {
+                            <li><a href="/../Products/ViewProducts">Products</a></li>
+                            <li><a href="@Url.Action("ViewRecords", "Customers")">Customers</a></li>
+                            <li><a href="@Url.Action("ViewOrders", "OrdersHistory")">OrdersHistory</a></li>
+                            <li><a href="@Url.Action("ViewDiscount", "Discount")">Discount</a></li>
+                         }
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @if (Session["session"].Equals(true))

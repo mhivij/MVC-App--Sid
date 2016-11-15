@@ -1,6 +1,7 @@
 ﻿using Orders_Engine_module_2.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Orders_Engine_module_2.Controllers
@@ -13,6 +14,22 @@ namespace Orders_Engine_module_2.Controllers
         Discount discountmodel = new Discount();
         DiscountProductMap DPM = new DiscountProductMap();
 
+        // GET:Product name from ID 
+        public ActionResult ConvertProductIdToName(int id)
+        {
+           var prodname = dbpro.Products.Where(x=>x.ProductID==id).Select(x => x.ProductName).Single();
+
+            return Content(prodname);
+        }
+
+        // GET:Discount name from ID 
+        public ActionResult ConvertDiscountIdToName(int id)
+        {
+            var Discountname = db.Discounts.Where(x => x.DiscountID == id).Select(x => x.DiscountName).First();
+
+            return Content(Discountname);
+        }
+
         // GET: Discount//Partial View
         public ActionResult DiscountOptions()
         {
@@ -21,7 +38,11 @@ namespace Orders_Engine_module_2.Controllers
 
         public ActionResult ViewDiscount()
         {
-            return View();
+            ViewModel vm = new ViewModel();
+            vm.Discount= db.Discounts;
+            vm.DiscountType=db.DiscountTypes;
+            vm.DiscountProductMap=db.DiscountProductMaps;
+            return View(vm);
         }
 
         // GET: Discount/Create
@@ -39,7 +60,7 @@ namespace Orders_Engine_module_2.Controllers
             {                
                     db.Discounts.Add(discount);
                     db.SaveChanges();
-                    return RedirectToAction("DiscountOptions");
+                    return RedirectToAction("ViewDiscount");
             }
             catch
             {
@@ -68,7 +89,7 @@ namespace Orders_Engine_module_2.Controllers
                     {
                         db.DiscountTypes.Add(discountType);
                         db.SaveChanges();
-                        return RedirectToAction(" DiscountOptions");
+                        return RedirectToAction("ViewDiscount");
                     }
                     else
                     {
@@ -87,7 +108,7 @@ namespace Orders_Engine_module_2.Controllers
         // GET: Discount/Create
         public ActionResult AddDiscountToProducts()
         {  
-                                                                                                              //value           //Text
+                                                                                                              //value         //Text
             DPM.Productname = new SelectList(dbpro.Products.Select(x => new { x.ProductName, x.ProductID }), "ProductID", "ProductName");
 
                                                                                                                //value           //Text
@@ -104,7 +125,7 @@ namespace Orders_Engine_module_2.Controllers
             {
                 db.DiscountProductMaps.Add(DisPro);
                 db.SaveChanges();
-                return RedirectToAction("DiscountOptions");
+                return RedirectToAction("ViewDiscount");
             }
             catch
             {
