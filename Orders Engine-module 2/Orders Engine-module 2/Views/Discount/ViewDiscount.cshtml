@@ -16,22 +16,26 @@
             @Html.DisplayName("DiscountName")
         </th>
         <th>
+            @Html.DisplayName("DiscountTypeName")
+        </th>
+        <th>
             @Html.DisplayName("DiscountPercent")
         </th>
         <th>
             @Html.DisplayName("CreatedDate")
         </th>
-        <th>
-            @Html.DisplayName("DiscountTypeName")
-        </th>
         <th></th>
     </tr>
 
 @foreach (var discount in Model.Discount) {
+
     var DiscountTypename = new Orders_Engine_module_2.Models.DiscountEntities().DiscountTypes.Where(x => x.DiscountTypeID == discount.DiscountTypeID).Select(x => x.DiscountTypeName).First();
     <tr>
         <td>
             @Html.DisplayFor(modelItem => discount.DiscountName)
+        </td>
+        <td>
+            @Html.Raw(DiscountTypename)
         </td>
         <td>
             @Html.DisplayFor(modelItem => discount.DiscountPercent)
@@ -40,14 +44,8 @@
             @Html.DisplayFor(modelItem => discount.CreatedDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => discount.CreatedBy)
-        </td>
-        <td>
-            @Html.Raw(DiscountTypename)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id= discount.DiscountID }) |
-            @Html.ActionLink("Delete", "Delete", new { id= discount.DiscountID })
+            @Html.ActionLink("Edit", "EditDiscount", new { id= discount.DiscountID }) |
+            @Html.ActionLink("Delete", "DeleteDiscount", new { id= discount.DiscountID })
         </td>
     </tr>
 }
@@ -86,8 +84,8 @@
                 @Html.DisplayFor(modelItem => discountType.CreatedBy)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = discountType.DiscountTypeID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = discountType.DiscountTypeID })
+                @*@Html.ActionLink("Edit", "EditDiscountProductsMap", new { id = discountType.DiscountTypeID }) |*@
+                @Html.ActionLink("Delete", "DeleteDiscountType", new { id = discountType.DiscountTypeID })
             </td>
         </tr>
     }
@@ -153,8 +151,8 @@
                 @Html.DisplayFor(modelItem => dpm.Discount.DiscountName)
             </td>*@
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = dpm.MapID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = dpm.MapID })
+                @Html.ActionLink("Edit", "EditDiscountProductsMap", new { id = dpm.MapID }) |
+                @Html.ActionLink("Delete", "DeleteDiscountProductsMap", new { id = dpm.MapID })
             </td>
         </tr>
     }

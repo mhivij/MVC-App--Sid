@@ -330,6 +330,11 @@
     <Content Include="Views\Discount\DiscountOptions.cshtml" />
     <Content Include="Views\Discount\AddDiscountToProducts.cshtml" />
     <Content Include="Views\Discount\ViewDiscount.cshtml" />
+    <Content Include="Views\Discount\DeleteDiscount.cshtml" />
+    <Content Include="Views\Discount\DeleteDiscountType.cshtml" />
+    <Content Include="Views\Discount\EditDiscount.cshtml" />
+    <Content Include="Views\Discount\EditDiscountProductsMap.cshtml" />
+    <Content Include="Views\Discount\DeleteDiscountProductsMap.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -344,6 +349,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersHistoryController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\Validations.cs" />
     <Compile Include="Models\Discount.cs">
       <DependentUpon>Discounts.tt</DependentUpon>
     </Compile>

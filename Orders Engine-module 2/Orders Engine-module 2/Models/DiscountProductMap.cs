@@ -21,6 +21,7 @@ namespace Orders_Engine_module_2.Models
         public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
         public string CreatedBy { get { return "Admin"; } set { } }
 
+        //For dropdown list
         public IEnumerable<SelectListItem> discountname { get; set; }
         public IEnumerable<SelectListItem> Productname { get; set; }
 

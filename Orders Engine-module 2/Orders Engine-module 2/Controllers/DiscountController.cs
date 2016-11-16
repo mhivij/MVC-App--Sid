@@ -1,6 +1,7 @@
 ﻿using Orders_Engine_module_2.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -10,9 +11,6 @@ namespace Orders_Engine_module_2.Controllers
     {
         DiscountEntities db = new DiscountEntities();
         ProductsEntities dbpro = new ProductsEntities();
-
-        Discount discountmodel = new Discount();
-        DiscountProductMap DPM = new DiscountProductMap();
 
         // GET:Product name from ID 
         public ActionResult ConvertProductIdToName(int id)
@@ -47,9 +45,10 @@ namespace Orders_Engine_module_2.Controllers
 
         // GET: Discount/Create
         public ActionResult CreateNewDiscount()
-        {                                                                                                                               //value           //Text
-            discountmodel.discountTypename = new SelectList(db.DiscountTypes.Select(x => new { x.DiscountTypeName,x.DiscountTypeID }),"DiscountTypeID", "DiscountTypeName");
-            return View(discountmodel);
+        {
+            Discount discount = new Discount();
+            discount = new Validations().GetDiscountTypeListValues(discount);
+            return View(discount);
         }
 
         // POST: Discount/Create
@@ -107,12 +106,9 @@ namespace Orders_Engine_module_2.Controllers
 
         // GET: Discount/Create
         public ActionResult AddDiscountToProducts()
-        {  
-                                                                                                              //value         //Text
-            DPM.Productname = new SelectList(dbpro.Products.Select(x => new { x.ProductName, x.ProductID }), "ProductID", "ProductName");
-
-                                                                                                               //value           //Text
-            DPM.discountname = new SelectList(db.Discounts.Select(x => new { x.DiscountName, x.DiscountID }), "DiscountID", "DiscountName");
+        {
+            DiscountProductMap DPM = new DiscountProductMap();
+            DPM= new Validations().GetDisToProListValue(DPM);
 
             return View(DPM);
         }
@@ -136,72 +132,211 @@ namespace Orders_Engine_module_2.Controllers
 
 
 
+        // GET: Discount/Edit/5
+        public ActionResult EditDiscount(int id)
+        {
+            try
+            {
+                Discount discount = db.Discounts.Find(id);
+                discount=new Validations().GetDiscountTypeListValues(discount);
+                
+                if (discount == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(discount);
+            }
+            catch
+            {
+                return RedirectToAction("ViewDiscount");
+            }
+        }
 
-
+        //POST: Discount/Edit/5
+         [HttpPost]
+        public ActionResult EditDiscount(int id, Discount discount)
+        {
+            try
+            {
+                discount = db.Discounts.Find(id);
+                UpdateModel(discount);
+                db.SaveChanges();
+                return RedirectToAction("ViewDiscount");
+            }
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return View(discount);
+            }
+        }
 
         // GET: Discount/Edit/5
-        /* public ActionResult Edit(int id)
-         {
-             return View();
-         }
+        public ActionResult EditDiscountProductsMap(int id)
+        {
+            try
+            {
+                DiscountProductMap DPM = new DiscountProductMap();
+                DPM= db.DiscountProductMaps.Find(id);
+                DPM = new Validations().GetDisToProListValue(DPM);
 
-         // POST: Discount/Edit/5
-         [HttpPost]
-         public ActionResult Edit(int id, FormCollection collection)
-         {
-             try
-             {
-                 // TODO: Add update logic here
+                if (DPM == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(DPM);
+            }
+            catch
+            {
+                return RedirectToAction("ViewDiscount");
+            }
+        }
 
-                 return RedirectToAction("Index");
-             }
-             catch
-             {
-                 return View();
-             }
-         }*/
+        //POST: Discount/Edit/5
+        [HttpPost]
+        public ActionResult EditDiscountProductsMap(int id, DiscountProductMap DPM)
+        {
+            try
+            {
+                DPM = db.DiscountProductMaps.Find(id);
+                UpdateModel(DPM);
+                db.SaveChanges();
+                return RedirectToAction("ViewDiscount");
+            }
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return View(DPM);
+            }
+        }
+
+
+
+
+
 
         // GET: Discount/Delete/5
         public ActionResult DeleteDiscount(int id)
         {
-            return View();
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Discount discount = db.Discounts.Find(id);
+                if (discount == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(discount);
+            }
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return View();
+            }
         }
 
         // POST: Discount/Delete/5
         [HttpPost]
-        public ActionResult DeleteDiscount(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteDiscount(int id, Discount discount)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                discount = db.Discounts.Find(id);
+                db.Discounts.Remove(discount);
+                db.SaveChanges();
+                return RedirectToAction("ViewDiscount");
             }
             catch
             {
-                return View();
+                TempData["Error"] = "There is no Internet connection";
+                return base.View(discount);
             }
         }
 
         // GET: Discount/Delete/5
         public ActionResult DeleteDiscountType(int id)
         {
-            return View();
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                DiscountType discounttype = db.DiscountTypes.Find(id);
+                if (discounttype == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(discounttype);
+            }
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return View();
+            }
         }
 
         // POST: Discount/Delete/5
         [HttpPost]
-        public ActionResult DeleteDiscountType(int id, FormCollection collection)
+        public ActionResult DeleteDiscountType(int id, DiscountType discounttype)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                discounttype = db.DiscountTypes.Find(id);
+                db.DiscountTypes.Remove(discounttype);
+                db.SaveChanges();
+                return RedirectToAction("ViewDiscount");
             }
             catch
             {
-                return View();
+                TempData["Error"] = "There is no Internet connection";
+                return base.View();
+            }
+        }
+
+        // GET: Discount/Delete/5
+        public ActionResult DeleteDiscountProductsMap(int id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                DiscountProductMap DPM = db.DiscountProductMaps.Find(id);
+                if (DPM == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(DPM);
+            }
+            catch
+            {
+                return RedirectToAction("ViewDiscount");
+            }
+        }
+
+        // POST: Discount/Delete/5
+        [HttpPost]
+        public ActionResult DeleteDiscountProductsMap(int id, DiscountProductMap DPM)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                DPM = db.DiscountProductMaps.Find(id);
+                db.DiscountProductMaps.Remove(DPM);
+                db.SaveChanges();
+                return RedirectToAction("ViewDiscount");
+            }
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return base.View(DPM);
             }
         }
     }
