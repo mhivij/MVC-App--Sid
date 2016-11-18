@@ -26,5 +26,6 @@ namespace Orders_Engine_module_2.Models
         public IEnumerable<SelectListItem> Productname { get; set; }
 
         public virtual Discount Discount { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

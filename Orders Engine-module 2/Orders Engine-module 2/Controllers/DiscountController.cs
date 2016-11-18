@@ -11,11 +11,13 @@ namespace Orders_Engine_module_2.Controllers
     {
         DiscountEntities db = new DiscountEntities();
         ProductsEntities dbpro = new ProductsEntities();
-
+        
         // GET:Product name from ID 
         public ActionResult ConvertProductIdToName(int id)
         {
-           var prodname = dbpro.Products.Where(x=>x.ProductID==id).Select(x => x.ProductName).Single();
+            //var businesses = db.DiscountProductMaps.OfType<Discount>().Where(x => x.DiscountProductMaps.Intersect(request.).Any());
+
+            var prodname = dbpro.Products.Where(x=>x.ProductID==id).Select(x => x.ProductName).Single();
 
             return Content(prodname);
         }
@@ -36,11 +38,20 @@ namespace Orders_Engine_module_2.Controllers
 
         public ActionResult ViewDiscount()
         {
-            ViewModel vm = new ViewModel();
-            vm.Discount= db.Discounts;
-            vm.DiscountType=db.DiscountTypes;
-            vm.DiscountProductMap=db.DiscountProductMaps;
-            return View(vm);
+            try
+            {
+                ViewModel vm = new ViewModel();
+                vm.Discount = db.Discounts;
+                vm.DiscountType = db.DiscountTypes;
+                vm.DiscountProductMap = db.DiscountProductMaps;
+                return View(vm);
+            }
+
+            catch
+            {
+                TempData["Error"] = "There is no Internet connection";
+                return View();
+            }
         }
 
         // GET: Discount/Create
@@ -83,7 +94,7 @@ namespace Orders_Engine_module_2.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    var discount = db.DiscountTypes.Where(x => x.DiscountTypeName == discountType.DiscountTypeName).Select(x => x.DiscountTypeName);
+                    var discount = db.DiscountTypes.Select(x => x).Where(x => x.DiscountTypeName == discountType.DiscountTypeName).FirstOrDefault();
                     if (discount == null)
                     {
                         db.DiscountTypes.Add(discountType);

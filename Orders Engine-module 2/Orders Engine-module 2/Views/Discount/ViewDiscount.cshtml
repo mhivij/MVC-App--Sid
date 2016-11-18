@@ -7,7 +7,12 @@
 @{
     Html.RenderPartial("DiscountOptions", "Discount");
 }
-
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-success" id="ErrorMessage">@TempData["Error"]</p>
+}
+else
+{
 <h2>ViewDiscount</h2>
 
 <table class="table">
@@ -27,7 +32,8 @@
         <th></th>
     </tr>
 
-@foreach (var discount in Model.Discount) {
+@foreach (var discount in Model.Discount)
+{
 
     var DiscountTypename = new Orders_Engine_module_2.Models.DiscountEntities().DiscountTypes.Where(x => x.DiscountTypeID == discount.DiscountTypeID).Select(x => x.DiscountTypeName).First();
     <tr>
@@ -44,8 +50,8 @@
             @Html.DisplayFor(modelItem => discount.CreatedDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditDiscount", new { id= discount.DiscountID }) |
-            @Html.ActionLink("Delete", "DeleteDiscount", new { id= discount.DiscountID })
+            @Html.ActionLink("Edit", "EditDiscount", new { id = discount.DiscountID }) |
+            @Html.ActionLink("Delete", "DeleteDiscount", new { id = discount.DiscountID })
         </td>
     </tr>
 }
@@ -54,7 +60,7 @@
 
 
 
-@{
+{
     ViewBag.Title = "ViewDiscountType";
 }
 
@@ -93,7 +99,7 @@
 </table>
 
 
-@{
+{
     ViewBag.Title = "ViewDiscountProductMap";
 }
 
@@ -158,3 +164,4 @@
     }
 
 </table>
+    }

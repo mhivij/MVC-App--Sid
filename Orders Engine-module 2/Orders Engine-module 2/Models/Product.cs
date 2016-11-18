@@ -21,6 +21,7 @@ namespace Orders_Engine_module_2.Models
         [Required]
         public int ProductCategoryID { get; set; }
         [Required]
+        [StringLength(100,ErrorMessage = "Description should be of 100 characters")]
         public string ProductDescription { get; set; }
         [Required]
         public byte[] ProductImage { get; set; }
@@ -31,7 +32,7 @@ namespace Orders_Engine_module_2.Models
         public System.DateTime CreatedDate { get { return DateTime.Now; } set { } }
         public string CreatedBy { get { return "Admin"; } set { } }
         public Nullable<int> ProductPrice { get; set; }
-        
+
         public virtual ProductCategory ProductCategory { get; set; }
     }
 }

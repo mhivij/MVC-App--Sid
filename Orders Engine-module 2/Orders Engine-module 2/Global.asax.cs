@@ -29,15 +29,16 @@ namespace Orders_Engine_module_2
                 roleManager.Create(newRole);
             }
 
-            if (!roleManager.RoleExists("Operator"))
+            if (!roleManager.RoleExists("Customer"))
             {
-                UserRole newRole = new UserRole("Operator", "Operators can only add or edit data.");
+                UserRole newRole = new UserRole("Customer", "Customer can Order Products only");
                 roleManager.Create(newRole);
             }
         }
         protected void Session_Start(Object sender, EventArgs e)
         {
-            Session["session"] = false;
+            Session["Administrator"] = false;
+            Session["Customer"] = false;
         }
 
     }

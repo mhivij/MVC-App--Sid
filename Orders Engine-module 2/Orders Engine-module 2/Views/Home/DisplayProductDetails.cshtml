@@ -1,82 +1,55 @@
-﻿@model Orders_Engine_module_2.Models.Product
+﻿@model Orders_Engine_module_2.Models.ViewModel
 
 @{
     ViewBag.Title = "DisplayProductDetails";
 }
+
+
+
+
 <div>
-    <h4>Product</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
+    <div class="container-fluid">
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
+        <div class="row">
+            @foreach (var product in Model.Products)
+            {
+               ViewData["PriceAfterTax"]=Html.Action("PriceAfterTax", new { product.ProductPrice, product.TaxAmout });
+            <div class="col-sm-4">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductImage)
-        </dt>
-
-        <dd>
-            @{
-                var base64 = Convert.ToBase64String(Model.ProductImage);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                @{
+                   var base64 = Convert.ToBase64String(product.ProductImage);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                <img src="@imgSrc" style="max-height:50%; max-width: 50%" />
+            </div>
+            <div class="col-sm-8" style="background-color:lavenderblush;">
+                <b>Name : </b>
+                @Html.DisplayFor(model => product.ProductName) <br />
+                <b>Description : </b>
+                @Html.DisplayFor(model => product.ProductDescription) <br />
+                <b>Price : @Html.DisplayFor(model => product.ProductPrice)</b><br />
+                <b>Tax : @Html.DisplayFor(model => product.TaxAmout) </b> <br />
+            </div>
+              }
+            @foreach (var discount in Model.Discount)
+            {
+                var PriceAfterTax = ViewData["PriceAfterTax"].ToString();
+                ViewData["PriceAfterDiscount"] =Html.Action("PriceAfterDiscount", new {PriceAfterTax , discount.DiscountPercent });
+                <div class="col-sm-8" style="background-color:gold;">
+                    <b>Discount : </b>
+                     @Html.DisplayFor(model => discount.DiscountName) <br />
+                    <b>@Html.DisplayName("Discount%"):@Html.DisplayFor(model => discount.DiscountPercent)</b><br />
+                    <b>@Html.DisplayName("Product Price including tax"):@ViewData["PriceAfterTax"]</b><br />
+                    <b>@Html.DisplayName("Product Price after Discount"):@ViewData["PriceAfterDiscount"] </b> <br />
+                </div>
             }
-            <img src="@imgSrc" style="max-height:50%; max-width: 50%" /> 
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsTaxable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsTaxable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TaxAmout)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TaxAmout)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCategory.ProductCategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductCategory.ProductCategoryName)
-        </dd>
-
-    </dl>
+        </div>
+        <div>
+        </div>
+    </div>
 </div>
+
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |*@
     @Html.ActionLink("Back to List", "Homepage")

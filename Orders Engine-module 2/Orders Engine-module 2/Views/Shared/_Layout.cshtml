@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="@Url.Action("Homepage","Home")">Home</a></li>
-                         @if (!Session["session"].Equals(true))
+                         @if (!Session["Administrator"].Equals(true) || Session["Customer"].Equals(true))
                          {
                         <li><a href="@Url.Action("Homepage", "Home", new { Category = "Electronics" })">Electronics</a></li>
                         <li><a href="@Url.Action("Homepage", "Home", new { Category = "Clothing" })">Clothing</a></li>
@@ -50,7 +50,7 @@
                          }
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        @if (Session["session"].Equals(true))
+                        @if (Session["Administrator"].Equals(true) || Session["Customer"].Equals(true))
                         {
                          <li><a href="@Url.Action("LogOut","Auth")"><span class="glyphicon glyphicon-user"></span> Sign Out</a></li>
                         }
@@ -58,7 +58,7 @@
                         {
                         <li><a href="/../Auth/Login"><span class="glyphicon glyphicon-user"></span> Sign In</a></li>
                         }
-                        <li><a href="/../OrdersHistory/ViewOrders"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                        <li><a href=""><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     </ul>
                 </div>
             </div>

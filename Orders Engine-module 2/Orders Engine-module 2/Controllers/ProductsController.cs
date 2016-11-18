@@ -66,19 +66,32 @@ namespace Orders_Engine_module_2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var product = db.ProductCategories.Where(x => x.ProductCategoryName == productcategory.ProductCategoryName).Select(x => x.ProductCategoryName);
-                if (product == null)
+                try
                 {
-                    db.ProductCategories.Add(productcategory);
-                    db.SaveChanges();
-                    return RedirectToAction("ViewProducts");
+                    var product = db.ProductCategories.Select(x => x).Where(x => x.ProductCategoryName == productcategory.ProductCategoryName).FirstOrDefault();
+                    if (product == null)
+                    {
+                        db.ProductCategories.Add(productcategory);
+                        db.SaveChanges();
+                        return RedirectToAction("ViewProducts");
+                    }
+                    else
+                    {
+                        ViewBag.message = "Record already available";
+                        return View(productcategory);
+                    }
                 }
-                else
+                catch
                 {
-                    ViewBag.message = "Record already available";
+                    TempData["Error"] = "There is no Internet connection";
+                    return View(productcategory);
                 }
             }
-            return View(productcategory);
+            else
+            {
+                TempData["Error"] = " Model state is false";
+                return View(productcategory);
+            }
         }
 
         // GET: Products/Create
@@ -240,6 +253,23 @@ namespace Orders_Engine_module_2.Controllers
             }
         }
 
+
+        // POST: Products/Delete/5
+        public ActionResult DeleteProductCategory(int id, ProductCategory productcategory)
+        {
+            try
+            {
+                productcategory = db.ProductCategories.Find(id);
+                db.ProductCategories.Remove(productcategory);
+                db.SaveChanges();
+                return RedirectToAction("ViewProducts");
+            }
+            catch
+            {
+                return base.View("ViewProducts");
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -250,33 +280,3 @@ namespace Orders_Engine_module_2.Controllers
         }
     }
 }
-
-
-   //if (ModelState.IsValid)
-   //         {
-   //             try
-   //             {
-   //                 var product = db.ProductCategories.Where(x => x.ProductCategoryName == productcategory.ProductCategoryName).Select(x => x.ProductCategoryName);
-   //                 if (product == null)
-   //                 {
-   //                     db.ProductCategories.Add(productcategory);
-   //                     db.SaveChanges();
-   //                     return RedirectToAction("ViewProducts");
-   //                 }
-   //                 else
-   //                 {
-   //                     ViewBag.message = "Record already available";
-   //                 }
-   //                 return View(productcategory);
-   //             }
-   //             catch
-   //             {
-   //                 TempData["Error"] = "There is no Internet connection";
-   //                 return View();
-   //             }
-   //         }
-   //         else
-   //         {
-   //             TempData["Error"] = " Model state is false";
-   //             return View();
-   //         }

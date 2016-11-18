@@ -56,7 +56,7 @@ namespace Orders_Engine_module_2.Controllers
 
                         if (result.Succeeded)
                         {
-                            userManager.AddToRole(user.Id, "Administrator");
+                            userManager.AddToRole(user.Id, "Customer");
                             return RedirectToAction("Login", "Auth");
                         }
                     }
@@ -83,7 +83,7 @@ namespace Orders_Engine_module_2.Controllers
             if (ModelState.IsValid)
             {
                 AppUser user = userManager.Find(model.Username, model.Password);
-                if (user != null && userManager.IsInRole(user.Id, "Administrator"))
+                if (user != null)
                 {
                     IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
                     authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
@@ -98,8 +98,16 @@ namespace Orders_Engine_module_2.Controllers
                     }
                     else
                     {
-                        Session["session"] =true ;
-                        return RedirectToAction("DiscountOptions", "Discount");
+                        if (userManager.IsInRole(user.Id, "Administrator"))
+                        {
+                            Session["Administrator"] = true;
+                            return RedirectToAction("DiscountOptions", "Discount");
+                        }
+                        else
+                        {
+                            Session["Customer"] = true;
+                            return RedirectToAction("Homepage", "Home");
+                        }
                     }
                 }
                 else
@@ -157,7 +165,8 @@ namespace Orders_Engine_module_2.Controllers
        // [ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
-            Session["session"] = false;
+            Session["Administrator"] = false;
+            Session["Customer"] = false;
             IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
             return RedirectToAction("Login", "Auth");

@@ -38,7 +38,7 @@
         </a>
     </div>
     </div>
-    @model IEnumerable<Orders_Engine_module_2.Models.Product>
+    @model Orders_Engine_module_2.Models.ViewModel
 
     @{
         ViewBag.Title = "Homepage";
@@ -48,19 +48,24 @@
         <div class="row">
             @if (@ViewBag.message == null)
             {
-                foreach (var item in Model)
+                foreach (var product in Model.Products)
                 {
                     <div class="col-sm-4">
                         <div class="panel panel-primary">
-                            @if (item.ProductCategoryID == 3)
+                            @foreach (var dpm in Model.DiscountProductMap)
                             {
-                                <div class="col-sm-4" style="max-width:12%;max-height:12%">
-                                    <img src="@Url.Content("~/Content/Images/Discount.png")" align="top" height=12 width=12 />
-                                </div>
+                                if (product.ProductID == dpm.ProductID)
+                                {
+                                    <div class="col-sm-4" style="max-width:12%;max-height:12%">
+                                        <img src="@Url.Content("~/Content/Images/Discount.png")" align="top" height=12 width=12 />
+                                    </div>
+                                    break;
+                                }
                             }
-                            <div class="panel-heading">@Html.ActionLink(item.ProductName, "DisplayProductDetails", new { id = item.ProductID }, new { style = "color:black" })</div>
-                            <div class="panel-body"><img src="@Url.Action("RenderImage", new { id = item.ProductID })" align="middle" height=80 width=80 /></div>
-                            <div class="panel-footer">Price=@Html.DisplayFor(model => item.ProductPrice)</div>
+
+                            <div class="panel-heading">@Html.ActionLink(product.ProductName, "DisplayProductDetails", new { id = product.ProductID}, new { style = "color:black" })</div>
+                            <div class="panel-body"><img src="@Url.Action("RenderImage", new { id = product.ProductID })" align="middle" height=80 width=80 /></div>
+                            <div class="panel-footer">Price=@Html.DisplayFor(model => product.ProductPrice)</div>
                         </div>
                     </div>
                 }
