@@ -336,6 +336,7 @@
     <Content Include="Views\Discount\EditDiscountProductsMap.cshtml" />
     <Content Include="Views\Discount\DeleteDiscountProductsMap.cshtml" />
     <Content Include="Views\Products\ViewProductsCategory.cshtml" />
+    <Content Include="Views\Customers\AddToCart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

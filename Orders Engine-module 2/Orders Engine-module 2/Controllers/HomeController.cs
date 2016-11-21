@@ -21,20 +21,11 @@ namespace Orders_Engine_module_2.Controllers
             return File(ShowImage, "image/png");
         }
 
-        public ActionResult PriceAfterTax(int productPrice, int TaxAmout)
+        public int PriceAfterTax(int productPrice, int TaxAmout)
         {
             int finalamount = (productPrice * TaxAmout)/100;
             finalamount = finalamount + productPrice;
-            return Content(finalamount.ToString());
-        }
-
-     
-        public ActionResult PriceAfterDiscount(string Price,decimal discountper)
-        {
-            int PriceAfterTax= Convert.ToInt32(Price);
-            decimal AmtAfterDiscount = (PriceAfterTax * discountper) / 100;
-            AmtAfterDiscount = PriceAfterTax - AmtAfterDiscount;
-            return Content(AmtAfterDiscount.ToString());
+            return finalamount;
         }
 
 

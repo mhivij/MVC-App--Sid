@@ -9,6 +9,7 @@ namespace Orders_Engine_module_2.Controllers
     public class CustomersController : Controller
     {
         Entities custdb = new Entities();
+        ProductsEntities pe = new ProductsEntities();
 
         // GET: Customers
         public ActionResult ViewRecords()
@@ -123,6 +124,19 @@ namespace Orders_Engine_module_2.Controllers
             {
                 TempData["Error"] = "There is no Internet connection";
                 return base.View();
+            }
+        }
+
+        public void AddToCart(string prodname,int prodprice)
+        {
+            bool check = new Validations().CheckIfUserIsLoggedIn();
+            if(check)
+            {
+                vm.CartItem= new SelectList(prodname, prodprice);
+            }
+            else
+            {
+                RedirectToAction("Login", "Auth");
             }
         }
     }

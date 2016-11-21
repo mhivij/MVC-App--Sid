@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Orders_Engine_module_2.Controllers
 {
-    public class Validations
+    public class Validations:Controller
     {
         public static SelectList productNameList;
         public static SelectList discountNameList;
@@ -31,6 +31,17 @@ namespace Orders_Engine_module_2.Controllers
                                                                                                                                        //value           //Text
             discount.discountTypename = new SelectList(db.DiscountTypes.Select(x => new { x.DiscountTypeName, x.DiscountTypeID }), "DiscountTypeID", "DiscountTypeName");
             return discount;
+        }
+        public bool CheckIfUserIsLoggedIn()
+        {
+            if(Session["Customer"].Equals(true))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

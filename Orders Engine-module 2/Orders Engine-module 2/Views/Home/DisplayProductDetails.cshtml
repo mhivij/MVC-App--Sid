@@ -102,7 +102,7 @@
                         <span class="size-buttons-inventory-left-hidden size-buttons-inventory-left">Hide</span>
                     </div>*@
                 <div>
-                    <button class="pdp-add-to-bag pdp-button" style="background-color:transparent;border-color:aqua;border-width:thin;border-radius:12px;width:50%;height:50px" onclick=""><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO Cart</button>
+                    <button class="pdp-add-to-bag pdp-button" style="background-color:transparent;border-color:aqua;border-width:thin;border-radius:12px;width:50%;height:50px" onclick="@Url.Action("Customers","AddToCart",new { ViewBag.productname,ViewBag.productprice })"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO Cart</button>
                 </div>
                 <div>
                     <div>
