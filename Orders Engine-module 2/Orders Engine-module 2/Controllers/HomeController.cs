@@ -85,15 +85,35 @@ namespace Orders_Engine_module_2.Controllers
             }
         }
         [HttpPost]                                 
-        public void DisplayProductDetails(ViewModel model,string command)
+        public ActionResult DisplayProductDetails(ViewModel model,string command)
         {
             
             if (command == "AddtoCart")
             {
-               var b= a.AddToCart(model);
+                bool check = new Validations().CheckIfUserIsLoggedIn();
+                try
+                {
+                    if (check)
+                    {
+                        vm.CartItem = model.Products;
+                        ViewBag.Cart = "Successfully added to cart";
+                        return View(model);
+                    }
+
+                    else
+                    {
+                        return RedirectToAction("Login", "Auth");
+                    }
+                }
+                catch
+                {
+                    TempData["Error"] = "There is no Internet connection";
+                    return null;
+                }
             }
             else
             {
+                return null;
             }
         }
     }

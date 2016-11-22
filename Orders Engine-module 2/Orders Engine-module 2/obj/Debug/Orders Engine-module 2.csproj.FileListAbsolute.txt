@@ -163,7 +163,6 @@ C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Order
 C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\bin\Mono.Math.xml
 C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\obj\Debug\Orders Engine-module 2.dll
 C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\obj\Debug\Orders Engine-module 2.pdb
-C:\Users\siddharth.bhatnagar\Documents\MVC-App--Sid\Orders Engine-module 2\Orders Engine-module 2\obj\Debug\Orders Engine-module 2.csprojResolveAssemblyReference.cache
 C:\Users\siddharth.bhatnagar\Pictures\Orders Engine-module 2\Orders Engine-module 2\bin\ApplicationInsights.config
 C:\Users\siddharth.bhatnagar\Pictures\Orders Engine-module 2\Orders Engine-module 2\bin\roslyn\csc.exe
 C:\Users\siddharth.bhatnagar\Pictures\Orders Engine-module 2\Orders Engine-module 2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll

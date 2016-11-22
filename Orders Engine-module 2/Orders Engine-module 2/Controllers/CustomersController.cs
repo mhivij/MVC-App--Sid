@@ -126,29 +126,5 @@ namespace Orders_Engine_module_2.Controllers
                 return base.View();
             }
         }
-
-        public ActionResult AddToCart(ViewModel model)
-        {
-            bool check = new Validations().CheckIfUserIsLoggedIn();
-            try
-            {
-                if (check)
-                {
-                    vm.CartItem = model.Products;
-                    ViewBag.Cart = "Successfully added to cart";
-                    return View("DisplayProductDetails", "Home", model);
-                }
-
-                else
-                {
-                   return RedirectToAction("Login", "Auth");
-                }
-            }
-            catch
-            {
-                TempData["Error"] = "There is no Internet connection";
-                return null;
-            }
-        }
     }
 }
