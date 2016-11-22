@@ -11,6 +11,7 @@ namespace Orders_Engine_module_2.Controllers
         private ProductsEntities db = new ProductsEntities();
         DiscountEntities disdb = new DiscountEntities();
         static ViewModel vm = new ViewModel();
+        CustomersController a = new CustomersController();
 
         public async Task<ActionResult> RenderImage(int id)
         {
@@ -81,6 +82,18 @@ namespace Orders_Engine_module_2.Controllers
             {
                 ViewBag.message = "There is no Internet connection";
                 return View("Homepage");
+            }
+        }
+        [HttpPost]                                 
+        public void DisplayProductDetails(ViewModel model,string command)
+        {
+            
+            if (command == "AddtoCart")
+            {
+               var b= a.AddToCart(model);
+            }
+            else
+            {
             }
         }
     }

@@ -32,7 +32,8 @@
                 ViewBag.discountpercent = discount.DiscountPercent;
             }
 
-
+@using (Html.BeginForm())
+{
 <div id="mountRoot" style="margin-top: 1%;">
     <div class="pdp-details">
         <div class="col-sm-6">
@@ -102,8 +103,17 @@
                         <span class="size-buttons-inventory-left-hidden size-buttons-inventory-left">Hide</span>
                     </div>*@
                 <div>
-                    <button class="pdp-add-to-bag pdp-button" style="background-color:transparent;border-color:aqua;border-width:thin;border-radius:12px;width:50%;height:50px" onclick="@Url.Action("Customers","AddToCart",new { ViewBag.productname,ViewBag.productprice })"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO Cart</button>
+                    <button type="submit" name="Command" value="AddtoCart" class="pdp-add-to-bag pdp-button" style="background-color:transparent;border-color:aqua;border-width:thin;border-radius:12px;width:50%;height:50px"><span class="glyphicon glyphicon-shopping-cart"></span>ADD TO Cart</button>@ViewBag.Cart
                 </div>
+                
+                @*<script type="text/javascript" language="javascript">
+                    function onSubmitButtonClick()
+                    {
+                        @Html.Action("AddToCart", "Customers", new { Model.Products });
+                       //alert("submit button clicked");
+                    }
+                </script>*@
+
                 <div>
                     <div>
                         <h4 class="pdp-product-description-title"><b>Product Details</b></h4>
@@ -130,8 +140,7 @@
     </div>
     </div>
 
-
-
+}
 
     <p>
         @*@Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |*@

@@ -34,7 +34,8 @@ namespace Orders_Engine_module_2.Controllers
         }
         public bool CheckIfUserIsLoggedIn()
         {
-            if(Session["Customer"].Equals(true))
+            bool login = (System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (login)
             {
                 return true;
             }

@@ -9,7 +9,7 @@ namespace Orders_Engine_module_2.Controllers
     public class CustomersController : Controller
     {
         Entities custdb = new Entities();
-        ProductsEntities pe = new ProductsEntities();
+        ViewModel vm= new ViewModel();
 
         // GET: Customers
         public ActionResult ViewRecords()
@@ -127,16 +127,27 @@ namespace Orders_Engine_module_2.Controllers
             }
         }
 
-        public void AddToCart(string prodname,int prodprice)
+        public ActionResult AddToCart(ViewModel model)
         {
             bool check = new Validations().CheckIfUserIsLoggedIn();
-            if(check)
+            try
             {
-                vm.CartItem= new SelectList(prodname, prodprice);
+                if (check)
+                {
+                    vm.CartItem = model.Products;
+                    ViewBag.Cart = "Successfully added to cart";
+                    return View("DisplayProductDetails", "Home", model);
+                }
+
+                else
+                {
+                   return RedirectToAction("Login", "Auth");
+                }
             }
-            else
+            catch
             {
-                RedirectToAction("Login", "Auth");
+                TempData["Error"] = "There is no Internet connection";
+                return null;
             }
         }
     }
