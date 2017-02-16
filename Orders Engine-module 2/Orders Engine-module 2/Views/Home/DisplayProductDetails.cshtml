@@ -1,148 +1,83 @@
-﻿@model Orders_Engine_module_2.Models.ViewModel
+﻿@model Orders_Engine_module_2.Models.Product
 
 @{
     ViewBag.Title = "DisplayProductDetails";
 }
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
 
-            @foreach (var product in Model.Products)
-            {
-                ViewData["PriceAfterTax"] = Html.Action("PriceAfterTax", new { product.ProductPrice, product.TaxAmout });
-                <div>
-                    @{
-                        var base64 = Convert.ToBase64String(product.ProductImage);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    }
-                </div>
-                         
-                ViewBag.productname = product.ProductName;
-                ViewBag.productdescription = product.ProductDescription;
-                ViewBag.productprice = product.ProductPrice;
-                ViewBag.taxamount = product.TaxAmout;
-                ViewBag.image = imgSrc;
-                            
-             }
-            @foreach (var discount in Model.Discount)
-            {
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
 
-                int PriceAfterTax = Convert.ToInt32(ViewData["PriceAfterTax"].ToString());
-                decimal AmtAfterDiscount = (PriceAfterTax * discount.DiscountPercent) / 100;
-                AmtAfterDiscount = PriceAfterTax - AmtAfterDiscount;
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </dt>
 
-                ViewData["PriceAfterDiscount"] = AmtAfterDiscount;
-                ViewBag.discountpercent = discount.DiscountPercent;
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductImage)
+        </dt>
+
+        <dd>
+            @{
+                var base64 = Convert.ToBase64String(Model.ProductImage);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
             }
+            <img src="@imgSrc" style="max-height:50%; max-width: 50%" /> 
+        </dd>
 
-@using (Html.BeginForm())
-{
-<div id="mountRoot" style="margin-top: 1%;">
-    <div class="pdp-details">
-        <div class="col-sm-6">
-            <div class="pdp-image-container">
-                <div>
-                    <a title="Blue" href="/Sweaters/SPYKAR/SPYKAR-Blue-Sweater/1395712/buy">
-                        <img class="colors-image" src=@ViewBag.image style="background-color: rgb(0, 116, 217);max-height:100%; max-width: 100%">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="pdp-description-container">
-                <div class="pdp-price-info">
-                    <h1 class="pdp-title">@ViewBag.productname</h1>
-                    <p class="pdp-discount-container">
-                        <s><!-- react-text: 89 -->Rs. <!-- /react-text --><!-- react-text: 90 -->@ViewData["PriceAfterTax"]<!-- /react-text --></s>
-                        <span class="pdp-discount">@ViewBag.discountpercent% OFF</span>
-                    </p>
-                    <p class="pdp-selling-price">
-                        <strong class="pdp-price"><!-- react-text: 94 -->Rs. <!-- /react-text --><!-- react-text: 95 -->@ViewData["PriceAfterDiscount"]<!-- /react-text --></strong>
-                        @*<button class="pdp-offer">
-                                <span class="myntraweb-sprite pdp-offercheck sprites-offercheck"></span><!-- react-text: 98 -->Check for Offer<!-- /react-text -->
-                            </button>*@
-                    </p>
-                </div>
-                @*<div class="colors-container">
-                        <p class="colors-heading">More Colors</p>
-                    </div>
-                    <div>
-                        <div class="size-buttons-size-header">
-                            <h6 class="size-buttons-select-size">SELECT SIZE</h6>
-                            <span class="size-buttons-size-chart">
-                                <span class="size-buttons-size-chart-info">Not sure?</span>
-                                <button class="size-buttons-show-size-chart">See Size Chart</button>
-                            </span>
-                        </div>
-                        <div class="size-buttons-size-buttons">
-                            <button class="size-buttons-size-button-disabled size-buttons-size-button-default" disabled="">
-                                <p class="size-buttons-unified-size">
-                                    <!-- react-text: 113 -->S<!-- /react-text -->
-                                    <span class="size-buttons-size-strike-show"></span>
-                                </p>
-                            </button>
-                            <button class="size-buttons-size-button size-buttons-size-button-default">
-                                <p class="size-buttons-unified-size">
-                                    <!-- react-text: 117 -->M<!-- /react-text -->
-                                    <span class="size-buttons-size-strike-hide"></span>
-                                </p>
-                            </button>
-                            <button class="size-buttons-size-button size-buttons-size-button-default">
-                                <p class="size-buttons-unified-size">
-                                    <!-- react-text: 121 -->L<!-- /react-text -->
-                                    <span class="size-buttons-size-strike-hide"></span>
-                                </p>
-                            </button>
-                            <button class="size-buttons-size-button size-buttons-size-button-default">
-                                <p class="size-buttons-unified-size"><!-- react-text: 125 -->XL<!-- /react-text --><span class="size-buttons-size-strike-hide"></span></p>
-                            </button>
-                            <button class="size-buttons-size-button size-buttons-size-button-default">
-                                <p class="size-buttons-unified-size">
-                                    <!-- react-text: 129 -->XXL<!-- /react-text -->
-                                    <span class="size-buttons-size-strike-hide"></span>
-                                </p>
-                            </button>
-                        </div>
-                        <span class="size-buttons-inventory-left-hidden size-buttons-inventory-left">Hide</span>
-                    </div>*@
-                <div>
-                    <button type="submit" name="Command" value="AddtoCart" class="pdp-add-to-bag pdp-button" style="background-color:transparent;border-color:aqua;border-width:thin;border-radius:12px;width:50%;height:50px"><span class="glyphicon glyphicon-shopping-cart"></span>ADD TO Cart</button>@ViewBag.Cart
-                </div>
-                
-                @*<script type="text/javascript" language="javascript">
-                    function onSubmitButtonClick()
-                    {
-                        @Html.Action("AddToCart", "Customers", new { Model.Products });
-                       //alert("submit button clicked");
-                    }
-                </script>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.IsTaxable)
+        </dt>
 
-                <div>
-                    <div>
-                        <h4 class="pdp-product-description-title"><b>Product Details</b></h4>
-                        <p class="pdp-product-description-content">@ViewBag.productdescription</p>
-                    </div>
-                    <div>
-                        <h4 class="pdp-product-description-title"><b>Material &amp; Care</b></h4>
-                        <p class="pdp-product-description-content">100% cotton<br>Hand-wash cold</p>
-                    </div>
-                </div>
-                <div>
-                    <button class="pincode-button" style="background-color:transparent;border-color:aqua;border-width:thin;border-radius:12px;width:50%;height:50px">Check Delivery Options</button>
-                </div>
-                <br />
-                <div class="meta-container">
-                    <p class="meta-info">Applicable VAT on the basis of exact location &amp; discount will be charged at the time of checkout</p>
-                    <p class="meta-info">100% Original Products</p>
-                    <p class="meta-info"><!-- react-text: 150 -->Free Delivery on order above Rs. <!-- /react-text --><!-- react-text: 151 -->999<!-- /react-text --></p>
-                    <p class="meta-info">30 days returns</p>
-                    <p class="meta-info">Cash On Delivery</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.IsTaxable)
+        </dd>
 
-}
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxAmout)
+        </dt>
 
-    <p>
-        @*@Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |*@
-        @Html.ActionLink("Back to List", "Homepage")
-    </p>
+        <dd>
+            @Html.DisplayFor(model => model.TaxAmout)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCategory.ProductCategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCategory.ProductCategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |*@
+    @Html.ActionLink("Back to List", "Homepage")
+</p>

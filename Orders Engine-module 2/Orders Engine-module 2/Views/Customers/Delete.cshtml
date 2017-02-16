@@ -4,12 +4,10 @@
     ViewBag.Title = "Delete";
 }
 
-@if (TempData["Error"] != null)
-{
-    <p class="alert alert-success" id="ErrorMessage">@TempData["Error"]</p>
-}
+<h2>Delete</h2>
 
 <div>
+    <h4>Customers</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -327,12 +325,6 @@
     </dl>
 </div>
 <p>
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

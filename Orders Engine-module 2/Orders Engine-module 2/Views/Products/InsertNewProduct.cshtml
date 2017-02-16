@@ -4,10 +4,7 @@
     ViewBag.Title = "InsertNewProduct";
 }
 
-@if (TempData["Error"] != null)
-{
-    <p class="alert alert-success" id="successMessage">@TempData["Error"]</p>
-}
+<h2>Create</h2>
 
 
 @using (Html.BeginForm("InsertNewProduct", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))

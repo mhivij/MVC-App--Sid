@@ -103,54 +103,15 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.1.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Scaffolding.EntityFramework.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.3.2.3\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Owin">
-      <HintPath>..\..\..\Documents\MVC-App--Sid\Orders Engine-module 2\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.dll</HintPath>
@@ -214,9 +175,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\Discount.png" />
-    <Content Include="Content\Images\Jeans.jpg" />
-    <Content Include="Content\Images\Oldtv.jpg" />
-    <Content Include="Content\Images\Tv.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -229,16 +187,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Customer.edmx</DependentUpon>
       <LastGenOutput>Customer1.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Discounts.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Discounts.edmx</DependentUpon>
-      <LastGenOutput>Discounts.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Discounts.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Discounts.edmx</DependentUpon>
-      <LastGenOutput>Discounts.cs</LastGenOutput>
     </Content>
     <Content Include="Models\OrdersHistory.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -269,9 +217,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Products\ViewProducts.cshtml" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <EntityDeploy Include="Models\Customer.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Customer.Designer.cs</LastGenOutput>
@@ -290,13 +236,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Products.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="Models\Discounts.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Discounts.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Discounts.edmx.diagram">
-      <DependentUpon>Discounts.edmx</DependentUpon>
-    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -323,20 +262,6 @@
     <Content Include="Views\Home\Homepage.cshtml" />
     <Content Include="Views\Home\DisplayProductDetails.cshtml" />
     <Content Include="Views\Products\InsertNewProductCategory.cshtml" />
-    <Content Include="Views\Auth\Register.cshtml" />
-    <Content Include="Views\Auth\ChangePassword.cshtml" />
-    <Content Include="Views\Discount\CreateNewDiscount.cshtml" />
-    <Content Include="Views\Discount\CreateNewDiscountType.cshtml" />
-    <Content Include="Views\Discount\DiscountOptions.cshtml" />
-    <Content Include="Views\Discount\AddDiscountToProducts.cshtml" />
-    <Content Include="Views\Discount\ViewDiscount.cshtml" />
-    <Content Include="Views\Discount\DeleteDiscount.cshtml" />
-    <Content Include="Views\Discount\DeleteDiscountType.cshtml" />
-    <Content Include="Views\Discount\EditDiscount.cshtml" />
-    <Content Include="Views\Discount\EditDiscountProductsMap.cshtml" />
-    <Content Include="Views\Discount\DeleteDiscountProductsMap.cshtml" />
-    <Content Include="Views\Products\ViewProductsCategory.cshtml" />
-    <Content Include="Views\Customers\AddToCart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -346,39 +271,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="Controllers\DiscountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersHistoryController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\Validations.cs" />
-    <Compile Include="Models\Discount.cs">
-      <DependentUpon>Discounts.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DiscountProductMap.cs">
-      <DependentUpon>Discounts.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Discounts.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Discounts.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Discounts.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Discounts.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Discounts.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Discounts.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DiscountType.cs">
-      <DependentUpon>Discounts.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserRole.cs" />
-    <Compile Include="Models\AppUser.cs" />
-    <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
@@ -442,9 +337,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Models\Register.cs" />
-    <Compile Include="Models\UsersContext.cs" />
-    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -469,9 +361,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

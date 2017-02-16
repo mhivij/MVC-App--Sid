@@ -1,17 +1,19 @@
 ﻿using Orders_Engine_module_2.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web;
+
+using System.Web.Mvc;
+using System.IO;
 
 namespace Orders_Engine_module_2.Controllers
 {
     public class HomeController : Controller
     {
         private ProductsEntities db = new ProductsEntities();
-        DiscountEntities disdb = new DiscountEntities();
-        static ViewModel vm = new ViewModel();
-        CustomersController a = new CustomersController();
 
         public async Task<ActionResult> RenderImage(int id)
         {
@@ -21,100 +23,34 @@ namespace Orders_Engine_module_2.Controllers
 
             return File(ShowImage, "image/png");
         }
-
-        public int PriceAfterTax(int productPrice, int TaxAmout)
+        public ActionResult ProductCategories(string Category)
         {
-            int finalamount = (productPrice * TaxAmout)/100;
-            finalamount = finalamount + productPrice;
-            return finalamount;
+            var p = db.ProductCategories.Where(x => x.ProductCategoryName == Category).Select(x => x.ProductCategoryID).FirstOrDefault();
+
+            var products = db.Products.Where(x => x.ProductCategoryID == p).ToList();
+            if (products.Count != 0)
+            {
+                return View("Homepage",products);
+            }
+            else
+            {
+                ViewBag.message = "Record not available";
+                return View("Homepage");
+            }
         }
-
-
         // GET: Home
-        public ActionResult Homepage(string Category)
+        public ActionResult Homepage()
         {
-            
-            try
-            {
-                if (Category != null)
-                {
-                    var p = db.ProductCategories.Where(x => x.ProductCategoryName == Category).Select(x => x.ProductCategoryID).FirstOrDefault();
+            var products = db.Products.Select(x => x).ToList();
 
-                     vm.Products= db.Products.Where(x => x.ProductCategoryID == p).ToList();
-                    if (vm.Products.Count() != 0)
-                    {
-                        return View(vm);
-                    }
-                    else
-                    {
-                        ViewBag.message = "Record not available";
-                        return View();
-                    }
-                }
-                else
-                {
-                    vm.Products = db.Products.Select(x => x).ToList();
-                    vm.DiscountProductMap = disdb.DiscountProductMaps;
-                    return View(vm);
-                }
-            }
-            catch
-            {
-                ViewBag.message = "There is no Internet connection";
-                return View();
-            }
-
+            return View(products);
         }
 
         // GET: Details
         public ActionResult DisplayProductDetails(int id)
         {
-            try
-            {
-                ViewModel vm1 = new ViewModel();
-                var discountid = vm.DiscountProductMap.Where(x => x.ProductID == id).Select(x => x.DiscountID).FirstOrDefault();
-                vm1.Discount = disdb.Discounts.Where(x => x.DiscountID == discountid).ToList();
-                vm1.Products = vm.Products.Where(x => x.ProductID == id);
-                
-                return View(vm1);
-            }
-            catch
-            {
-                ViewBag.message = "There is no Internet connection";
-                return View("Homepage");
-            }
-        }
-        [HttpPost]                                 
-        public ActionResult DisplayProductDetails(ViewModel model,string command)
-        {
-            
-            if (command == "AddtoCart")
-            {
-                bool check = new Validations().CheckIfUserIsLoggedIn();
-                try
-                {
-                    if (check)
-                    {
-                        vm.CartItem = model.Products;
-                        ViewBag.Cart = "Successfully added to cart";
-                        return View(model);
-                    }
-
-                    else
-                    {
-                        return RedirectToAction("Login", "Auth");
-                    }
-                }
-                catch
-                {
-                    TempData["Error"] = "There is no Internet connection";
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
+            var product = db.Products.Find(id);
+            return View(product);
         }
     }
 }
