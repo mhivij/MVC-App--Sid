@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Orders_Engine_module_2.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-success" id="ErrorMessage">@TempData["Error"]</p>
+}
+else
+{
+<p>
+   <u> @Html.ActionLink("Insert New Product", "InsertNewProduct")</u>
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCategory.ProductCategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsTaxable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxAmout)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "EditProductDetails", new { id = item.ProductID }) |
+            @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ProductID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductCategory.ProductCategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDescription)
+        </td>
+        <td>
+            <img src="@Url.Action("RenderImage", new { id = item.ProductID })" width="80" height="80"  />
+            @*@Html.DisplayFor(modelItem => item.ProductImage)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsTaxable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxAmout)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+    </tr>
+}
+
+</table>
+
+    {
+        Html.RenderPartial("ViewProductsCategory", new Orders_Engine_module_2.Models.ProductsEntities().ProductCategories);
+    }
+}

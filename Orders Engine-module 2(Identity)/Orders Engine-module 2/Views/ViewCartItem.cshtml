@@ -1,0 +1,30 @@
+﻿@model Orders_Engine_module_2.Models.ViewModel
+
+@{
+    ViewBag.Title = "ViewCartItem";
+}
+
+<h2>ViewCartItem</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("ProductName")
+        </th>
+        <th>
+            @Html.DisplayName("ProductPrice")
+        </th>
+    </tr>
+
+@foreach (var item in Model.Products) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+    </tr>
+}
+
+</table>
